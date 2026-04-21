@@ -6,7 +6,7 @@ Managed by [Terraform](https://www.terraform.io/)
 
 - SSH Key
 - Terraform
-- Proxmox v8
+- Proxmox v9
 - cloud-init template
 - `terraform.tfvars` filled in
 - `pass` setup with required passwords
@@ -29,7 +29,7 @@ Used for access.
 
 [Install the latest version](https://developer.hashicorp.com/terraform/downloads?product_intent=terraform).
 
-### Proxmox v8
+### Proxmox v9
 
 Used for virtualisation.
 
