@@ -1,6 +1,12 @@
 # HomeOps
 
-Self-hosting at home.
+This repo contains my stable Terraform + Ansible based homelab setup.
+
+It's intentionally boring. It runs real workloads with real users, including myself, so I don't want it breaking.
+
+It was split out from my "homelab" repo, which is now for testing out a Kubernetes based setup.
+
+Ongoing experiments happen there, and maybe one day will replace this one.
 
 ## NAS
 
