@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   parser:
     image: ${PARSER_IMAGE:?PARSER_IMAGE must be set}
