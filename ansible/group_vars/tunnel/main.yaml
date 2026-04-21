@@ -9,8 +9,7 @@ gerbil_image: "docker.io/fosrl/gerbil:1.3.1@sha256:b16a722d5603fa74acd3e1deb86ce
 traefik_image: "docker.io/traefik:v3.6.13"
 # renovate: datasource=docker depName=docker.io/crowdsecurity/crowdsec
 crowdsec_image: "docker.io/crowdsecurity/crowdsec:v1.7.7@sha256:6ca53ad26196ca59ddd4fa692a586b73d8fcde085046163b9ca2f04887dca563"
-# MaxMind does not publish a 7.1.1 image tag; normalize during upgrade.
-geoipupdate_image: "ghcr.io/maxmind/geoipupdate@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2"
+geoipupdate_image: "ghcr.io/maxmind/geoipupdate:v7.1.1@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2"
 
 # renovate: datasource=github-releases depName=fosrl/badger
 pangolin_badger_plugin_version: "v1.4.0"
