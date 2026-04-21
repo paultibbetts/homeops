@@ -1,4 +1,3 @@
-# Public-safe defaults. Override locally in ansible/group_vars/tunnel/zz-local.yaml.
 # renovate: datasource=github-releases depName=fosrl/newt
 newt_version: 1.11.0
 
