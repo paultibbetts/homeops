@@ -8,8 +8,11 @@ layout:
     columns: 1
   Apps:
     style: row
-    columns: 3
-  Services:
+    columns: 2
+  Platform:
+    style: row
+    columns: 2
+  Monitoring:
     style: row
     columns: 2
   Machines:

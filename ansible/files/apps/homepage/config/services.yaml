@@ -24,31 +24,6 @@
           username: "{{HOMEPAGE_VAR_HOMEBOX_USER}}"
           password: "{{HOMEPAGE_VAR_HOMEBOX_PASSWORD}}"
           fields: ["items", "labels", "totalValue"]
-    - Mealie:
-        href: "{{HOMEPAGE_VAR_MEALIE_URL}}"
-        icon: mealie
-        widget:
-          type: mealie
-          url: "{{HOMEPAGE_VAR_MEALIE_URL}}"
-          key: "{{HOMEPAGE_VAR_MEALIE_TOKEN}}"
-          version: 2
-- Services:
-    - Beszel:
-        href: "{{HOMEPAGE_VAR_BESZEL_URL}}"
-        icon: beszel
-        widget:
-          type: beszel
-          url: "{{HOMEPAGE_VAR_BESZEL_URL}}"
-          username: "{{HOMEPAGE_VAR_BESZEL_USERNAME}}"
-          password: "{{HOMEPAGE_VAR_BESZEL_PASSWORD}}"
-          version: 2
-    - Gitea:
-        href: "{{HOMEPAGE_VAR_GITEA_URL}}"
-        icon: gitea
-        widget:
-          type: gitea
-          url: "{{HOMEPAGE_VAR_GITEA_URL}}"
-          key: "{{HOMEPAGE_VAR_GITEA_API_TOKEN}}"
     - Jellyfin:
         href: "{{HOMEPAGE_VAR_JELLYFIN_URL}}"
         icon: jellyfin
@@ -61,6 +36,22 @@
           enableUser: true # optional, defaults to false
           showEpisodeNumber: true # optional, defaults to false
           expandOneStreamToTwoRows: false # optional, defaults to true
+    - Mealie:
+        href: "{{HOMEPAGE_VAR_MEALIE_URL}}"
+        icon: mealie
+        widget:
+          type: mealie
+          url: "{{HOMEPAGE_VAR_MEALIE_URL}}"
+          key: "{{HOMEPAGE_VAR_MEALIE_TOKEN}}"
+          version: 2
+- Platform:
+    - Gitea:
+        href: "{{HOMEPAGE_VAR_GITEA_URL}}"
+        icon: gitea
+        widget:
+          type: gitea
+          url: "{{HOMEPAGE_VAR_GITEA_URL}}"
+          key: "{{HOMEPAGE_VAR_GITEA_API_TOKEN}}"
     - Kanidm:
         href: "{{HOMEPAGE_VAR_AUTH_URL}}"
         icon: kanidm
@@ -81,6 +72,16 @@
           url: "{{HOMEPAGE_VAR_PIHOLE_URL}}"
           version: 6
           key: "{{HOMEPAGE_VAR_PIHOLE_TOKEN}}"
+- Monitoring:
+    - Beszel:
+        href: "{{HOMEPAGE_VAR_BESZEL_URL}}"
+        icon: beszel
+        widget:
+          type: beszel
+          url: "{{HOMEPAGE_VAR_BESZEL_URL}}"
+          username: "{{HOMEPAGE_VAR_BESZEL_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_BESZEL_PASSWORD}}"
+          version: 2
     - Uptime:
         href: "{{HOMEPAGE_VAR_UPTIME_URL}}"
         icon: uptime-kuma
