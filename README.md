@@ -33,6 +33,8 @@ Self-hosting at home.
 - **Databases** - [MySQL](https://www.mysql.com/) and [Postgres](https://www.postgresql.org/)
 - **Movies & Shows** - [Jellyfin](https://jellyfin.org/)
 - **Ingress** - [Caddy](https://caddyserver.com/)
+- **Notifications** - [ntfy](https://ntfy.sh/)
+- **Dependency updates** - [Renovate](https://docs.renovatebot.com/)
 
 ## MonPi
 
