@@ -2,51 +2,53 @@
 proxmox_ip: 192.168.1.131
 truenas_ip: 192.168.1.4
 
+cloud: cloud.paultibbetts.uk
+
 ingress_services:
   auth:
-    domain: auth.cloud.paultibbetts.uk
+    domain: "auth.{{ cloud }}"
     upstream: "{{ hostvars[groups['auth'][0]].ansible_host }}:8443"
   beszel:
-    domain: beszel.cloud.paultibbetts.uk
+    domain: "beszel.{{ cloud }}"
     upstream: "{{ hostvars[groups['monpi'][0]].ansible_host }}:8090"
   freshrss:
-    domain: freshrss.cloud.paultibbetts.uk
+    domain: "freshrss.{{ cloud }}"
     upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:8080"
   gitea:
-    domain: gitea.cloud.paultibbetts.uk
+    domain: "gitea.{{ cloud }}"
     upstream: "{{ hostvars[groups['git'][0]].ansible_host }}:3000"
   homebox:
-    domain: homebox.cloud.paultibbetts.uk
+    domain: "homebox.{{ cloud }}"
     upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:3100"
   homepage:
-    domain: homepage.cloud.paultibbetts.uk
+    domain: "homepage.{{ cloud }}"
     upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:3000"
   jellyfin:
-    domain: jellyfin.cloud.paultibbetts.uk
+    domain: "jellyfin.{{ cloud }}"
     upstream: "{{ hostvars[groups['jellyfin'][0]].ansible_host }}:8096"
   mealie:
-    domain: mealie.cloud.paultibbetts.uk
+    domain: "mealie.{{ cloud }}"
     upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:9000"
   mealie_enricher:
-    domain: mealie-enricher.cloud.paultibbetts.uk
+    domain: "mealie-enricher.{{ cloud }}"
     upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:9001"
   minio:
-    domain: minio.cloud.paultibbetts.uk
+    domain: "minio.{{ cloud }}"
     upstream: "{{ truenas_ip }}:9002"
   ntfy:
-    domain: ntfy.cloud.paultibbetts.uk
+    domain: "ntfy.{{ cloud }}"
     upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:8093"
   pihole:
-    domain: pihole.cloud.paultibbetts.uk
+    domain: "pihole.{{ cloud }}"
     upstream: "{{ hostvars[groups['dns'][0]].ansible_host }}:8080"
   proxmox:
-    domain: proxmox.cloud.paultibbetts.uk
+    domain: "proxmox.{{ cloud }}"
     upstream: "{{ proxmox_ip }}:8006"
   truenas:
-    domain: truenas.cloud.paultibbetts.uk
+    domain: "truenas.{{ cloud }}"
     upstream: "{{ truenas_ip }}:81"
   uptime:
-    domain: uptime.cloud.paultibbetts.uk
+    domain: "uptime.{{ cloud }}"
     upstream: "{{ hostvars[groups['monpi'][0]].ansible_host }}:3001"
 
 ingress_freshrss_greader_cors_origin: "https://stream.lab.paultibbetts.uk"
