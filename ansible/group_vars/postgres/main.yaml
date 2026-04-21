@@ -38,21 +38,21 @@ postgresql_hba_entries:
       type: host,
       database: homebox,
       user: homebox,
-      address: "{{ postgres_client_cidr }}",
+      address: "{{ hostvars[groups['apps'][0]].ansible_host }}/32",
       auth_method: md5,
     }
   - {
       type: host,
       database: mealie,
       user: mealie,
-      address: "{{ postgres_client_cidr }}",
+      address: "{{ hostvars[groups['apps'][0]].ansible_host }}/32",
       auth_method: md5,
     }
   - {
       type: host,
       database: uptime_monitor,
       user: uptime_monitor,
-      address: "{{ postgres_client_cidr }}",
+      address: "{{ hostvars[groups['monpi'][0]].ansible_host }}/32",
       auth_method: md5,
     }
 
