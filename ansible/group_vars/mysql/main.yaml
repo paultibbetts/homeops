@@ -1,5 +1,4 @@
 ---
-# Public-safe defaults. Override locally in ansible/group_vars/mysql/zz-local.yaml.
 mysql_disable_log_bin: true
 
 mysql_databases:

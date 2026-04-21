@@ -1,7 +1,3 @@
----
-# Public-safe defaults. Override locally in ansible/group_vars/postgres/zz-local.yaml.
-postgres_client_cidr: "192.0.2.0/24"
-
 postgresql_databases:
   - name: homebox
     owner: homebox
