@@ -1,0 +1,12 @@
+services:
+  kanidm:
+    image: "${KANIDM_IMAGE}"
+    container_name: kanidm
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${KANIDM_HTTPS_PORT:-8443}:443"
+      - "${KANIDM_LDAP_PORT:-8636}:636"
+    volumes:
+      - ./data:/data

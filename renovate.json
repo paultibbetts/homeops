@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "pinDigests": true
+    },
+    {
+      "description": "Disable digest pinning for regex-managed Ansible group vars",
+      "matchDatasources": ["docker"],
+      "matchFileNames": ["ansible/group_vars/**/main.yaml"],
+      "pinDigests": false
+    },
+    {
+      "description": "Disable digest pinning for pyenv-managed Python versions",
+      "matchManagers": ["pyenv"],
+      "pinDigests": false
+    },
+    {
+      "description": "ignore mealie-enricher for now",
+      "matchFileNames": ["ansible/group_vars/apps/mealie-enricher.yaml"],
+      "enabled": false
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update annotated deployment values in Ansible group_vars",
+      "managerFilePatterns": ["/^ansible/group_vars/[^/]+/main\\.ya?ml$/"],
+      "matchStrings": [
+        "(?:^|\\r?\\n)\\s*#\\s*renovate:\\s*datasource=(?<datasource>[a-z-]+)\\s+depName=(?<depName>[^\\s]+)(?:\\s+packageName=(?<packageName>[^\\s]+))?(?:\\s+versioning=(?<versioning>[^\\s]+))?(?:\\s+extractVersion=(?<extractVersion>[^\\s]+))?\\s*\\r?\\n\\s*[A-Za-z0-9_]+:\\s*[\"']?(?:[^\\s\"'@:]+(?:/[^\\s\"'@:]+)*:)?(?<currentValue>[^:@\\s\"']+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?[\"']?"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}"
+    }
+  ]
+}

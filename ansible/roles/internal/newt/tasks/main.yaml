@@ -1,0 +1,10 @@
+---
+- name: Install
+  ansible.builtin.import_tasks: install.yaml
+  tags:
+    - install
+
+- name: Service
+  ansible.builtin.import_tasks: service.yaml
+  tags:
+    - service

@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Paul Tibbetts
+  description: Deploys Uptime Kuma as a Docker Compose application.
+  license: MIT
+  min_ansible_version: "2.12"
+  galaxy_tags:
+    - uptime
+    - monitoring
+    - docker
+    - compose
+
+dependencies: []

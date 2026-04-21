@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Paul Tibbetts
+  description: Common tasks for every server in my homelab.
+  company: Homelab
+  license: MIT
+  min_ansible_version: "2.12"
+  galaxy_tags:
+    - common
+    - base
+    - ssh
+    - users
+    - debian
+
+dependencies: []

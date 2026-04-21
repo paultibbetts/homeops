@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  parser:
+    image: ${PARSER_IMAGE:?PARSER_IMAGE must be set}
+
+  app:
+    image: ${APP_IMAGE:?APP_IMAGE must be set}
+    environment:
+      MEALIE_ENRICHER_MEALIE_BASE_URL: "${MEALIE_ENRICHER_MEALIE_BASE_URL:?MEALIE_ENRICHER_MEALIE_BASE_URL must be set}"
+      MEALIE_ENRICHER_MEALIE_TOKEN: "${MEALIE_TOKEN}"
+      MEALIE_ENRICHER_PARSER_BASE_URL: "http://parser:8000"
+    ports:
+      - "9001:8080"
+    depends_on:
+      - parser

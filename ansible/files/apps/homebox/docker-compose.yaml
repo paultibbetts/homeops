@@ -1,0 +1,36 @@
+services:
+  homebox:
+    image: ghcr.io/sysadminsmedia/homebox:0.25.0@sha256:6506480a3dfadd2cc885fa97b32d11b0ee28ec58629fa34a76afdb4ac540c7fc
+    container_name: homebox
+    restart: always
+    environment:
+      - HBOX_LOG_LEVEL=info
+      - HBOX_LOG_FORMAT=text
+      - HBOX_WEB_MAX_UPLOAD_SIZE=10
+      - HBOX_OPTIONS_ALLOW_ANALYTICS=true
+      # Database
+      - HBOX_DATABASE_DRIVER=postgres
+      - HBOX_DATABASE_HOST=${HBOX_DATABASE_HOST:?HBOX_DATABASE_HOST must be set}
+      - HBOX_DATABASE_PORT=5432
+      - HBOX_DATABASE_USERNAME=homebox
+      - HBOX_DATABASE_PASSWORD=${HBOX_DATABASE_PASSWORD}
+      - HBOX_DATABASE_DATABASE=homebox
+      # Storage
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - HBOX_STORAGE_CONN_STRING=${HBOX_STORAGE_CONN_STRING:?HBOX_STORAGE_CONN_STRING must be set}
+      # OIDC
+      - HBOX_OPTIONS_HOSTNAME=${HBOX_OPTIONS_HOSTNAME:?HBOX_OPTIONS_HOSTNAME must be set}
+      - HBOX_OIDC_ENABLED=true
+      - HBOX_OIDC_ISSUER_URL=${HBOX_OIDC_ISSUER_URL:?HBOX_OIDC_ISSUER_URL must be set}
+      - HBOX_OIDC_CLIENT_ID=homebox
+      - HBOX_OIDC_CLIENT_SECRET=${HBOX_OIDC_CLIENT_SECRET}
+      - HBOX_OPTIONS_TRUST_PROXY=true
+    volumes:
+      - homebox-data:/data/
+    ports:
+      - 3100:7745
+
+volumes:
+  homebox-data:
+    driver: local

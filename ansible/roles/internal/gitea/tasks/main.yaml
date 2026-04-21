@@ -1,0 +1,70 @@
+---
+- name: Install Ansible support packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ ansible_support_packages }}"
+
+- name: Create Gitea group
+  ansible.builtin.group:
+    name: "{{ gitea_group }}"
+    state: present
+
+- name: Create Gitea user
+  ansible.builtin.user:
+    name: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    home: "{{ gitea_working_directory }}"
+    comment: Gitea
+
+- name: Ensure Gitea binary directory exists
+  ansible.builtin.file:
+    path: "{{ gitea_binary | dirname }}"
+    state: directory
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: "0755"
+    recurse: true
+
+- name: Download Gitea binary
+  ansible.builtin.get_url:
+    url: "{{ gitea_download_url }}"
+    dest: "{{ gitea_binary }}"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: "0755"
+
+- name: Render Gitea environment file
+  ansible.builtin.template:
+    src: gitea.env.j2
+    dest: "{{ gitea_envfile }}"
+  notify: Restart Gitea
+
+- name: Render Gitea systemd unit
+  ansible.builtin.template:
+    src: gitea.unit.j2
+    dest: "{{ systemd_units_dir }}/gitea.service"
+  when: ansible_facts['service_mgr'] == "systemd"
+  notify: Restart Gitea
+
+- name: Render Gitea init script
+  ansible.builtin.template:
+    src: gitea.init.j2
+    dest: "{{ initd_conf_dir }}/gitea"
+    mode: "0755"
+  when: ansible_facts['service_mgr'] != "systemd"
+  notify: Restart Gitea
+
+- name: Render Gitea update script
+  ansible.builtin.template:
+    src: gitea-update.sh.j2
+    dest: "{{ gitea_working_directory }}/bin/update.sh"
+    mode: "0755"
+  tags:
+    - update
+
+- name: Enable and start Gitea service
+  ansible.builtin.service:
+    name: gitea
+    state: started
+    enabled: true

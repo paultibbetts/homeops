@@ -1,0 +1,37 @@
+---
+- hosts: git
+  gather_facts: true
+  become: true
+  roles:
+    - role: gitea
+  vars:
+    backup_script_directory: /usr/local/bin/
+    backup_script_name: backup-gitea.sh
+    backup_script: "{{ backup_script_directory }}{{ backup_script_name }}"
+    healthcheck: "{{ git_backup_healthcheck | default('curl -fsS -m 10 --retry 5 -o /dev/null https://healthchecks.example.com/ping/example-git') }}"
+  tasks:
+    - name: Backup
+      tags:
+        - backup
+      block:
+        - name: Ensure backup directory exists
+          ansible.builtin.file:
+            path: /var/backups/gitea
+            state: directory
+            owner: git
+            group: git
+            mode: "0700"
+        - name: Write backup script
+          ansible.builtin.copy:
+            src: "{{ playbook_dir }}/../files/backups/{{ backup_script_name }}"
+            dest: "{{ backup_script }}"
+        - name: Make script executable
+          ansible.builtin.file:
+            path: "{{ backup_script }}"
+            mode: "0755"
+        - name: Add script to CRON
+          ansible.builtin.cron:
+            name: gitea backup
+            hour: "3"
+            minute: "0"
+            job: "{{ backup_script }} && {{ healthcheck }}"

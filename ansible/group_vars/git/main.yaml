@@ -1,0 +1,3 @@
+---
+# renovate: datasource=github-releases depName=go-gitea/gitea extractVersion=^v(?<version>.*)$
+gitea_version: "1.26.0"

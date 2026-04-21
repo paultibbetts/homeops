@@ -1,0 +1,25 @@
+---
+- name: Validate Pangolin configuration
+  ansible.builtin.include_tasks: assert.yaml
+
+- name: Validate {{ pangolin_runtime }} availability for Pangolin
+  ansible.builtin.include_tasks: "{{ role_path }}/../common/tasks/assert_container_runtime.yaml"
+  vars:
+    container_runtime_command: "{{ pangolin_runtime }}"
+    container_runtime_install_hint: >-
+      {{
+        (pangolin_runtime == 'docker')
+        | ternary(
+            'Install Docker and the Compose plugin first, for example by applying the geerlingguy.docker role in the calling playbook.',
+            'Install Podman with compose support before running this role.'
+          )
+      }}
+
+- name: Create Pangolin directory structure
+  ansible.builtin.include_tasks: directories.yaml
+
+- name: Render Pangolin env file
+  ansible.builtin.include_tasks: env.yaml
+
+- name: Render Pangolin config files
+  ansible.builtin.include_tasks: config.yaml

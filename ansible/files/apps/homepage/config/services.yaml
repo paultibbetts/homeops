@@ -1,0 +1,121 @@
+- Status:
+    - Cloud:
+        href: "{{HOMEPAGE_VAR_UPTIME_URL}}/status/cloud"
+        icon: mdi-cloud
+        widget:
+          type: uptimekuma
+          url: "{{HOMEPAGE_VAR_UPTIME_URL}}"
+          slug: cloud
+- Apps:
+    - FreshRSS:
+        href: "{{HOMEPAGE_VAR_FRESHRSS_URL}}"
+        icon: freshrss
+        widget:
+          type: freshrss
+          url: "{{HOMEPAGE_VAR_FRESHRSS_URL}}"
+          username: "{{HOMEPAGE_VAR_FRESHRSS_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_FRESHRSS_PASSWORD}}"
+    - HomeBox:
+        href: "{{HOMEPAGE_VAR_HOMEBOX_URL}}"
+        icon: homebox
+        widget:
+          type: homebox
+          url: "{{HOMEPAGE_VAR_HOMEBOX_URL}}"
+          username: "{{HOMEPAGE_VAR_HOMEBOX_USER}}"
+          password: "{{HOMEPAGE_VAR_HOMEBOX_PASSWORD}}"
+          fields: ["items", "labels", "totalValue"]
+    - Mealie:
+        href: "{{HOMEPAGE_VAR_MEALIE_URL}}"
+        icon: mealie
+        widget:
+          type: mealie
+          url: "{{HOMEPAGE_VAR_MEALIE_URL}}"
+          key: "{{HOMEPAGE_VAR_MEALIE_TOKEN}}"
+          version: 2
+- Services:
+    - Beszel:
+        href: "{{HOMEPAGE_VAR_BESZEL_URL}}"
+        icon: beszel
+        widget:
+          type: beszel
+          url: "{{HOMEPAGE_VAR_BESZEL_URL}}"
+          username: "{{HOMEPAGE_VAR_BESZEL_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_BESZEL_PASSWORD}}"
+          version: 2
+    - Gitea:
+        href: "{{HOMEPAGE_VAR_GITEA_URL}}"
+        icon: gitea
+        widget:
+          type: gitea
+          url: "{{HOMEPAGE_VAR_GITEA_URL}}"
+          key: "{{HOMEPAGE_VAR_GITEA_API_TOKEN}}"
+    - Jellyfin:
+        href: "{{HOMEPAGE_VAR_JELLYFIN_URL}}"
+        icon: jellyfin
+        widget:
+          type: jellyfin
+          url: "{{HOMEPAGE_VAR_JELLYFIN_URL}}"
+          key: "{{HOMEPAGE_VAR_JELLYFIN_TOKEN}}"
+          enableBlocks: true # optional, defaults to false
+          enableNowPlaying: true # optional, defaults to true
+          enableUser: true # optional, defaults to false
+          showEpisodeNumber: true # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+    - Kanidm:
+        href: "{{HOMEPAGE_VAR_AUTH_URL}}"
+        icon: kanidm
+    - MinIO:
+        href: "{{HOMEPAGE_VAR_MINIO_URL}}"
+        icon: minio
+    - ntfy:
+        href: "{{HOMEPAGE_VAR_NTFY_URL}}"
+        icon: ntfy
+    - Pangolin:
+        href: "{{HOMEPAGE_VAR_PANGOLIN_URL}}"
+        icon: pangolin
+    - PiHole:
+        href: "{{HOMEPAGE_VAR_PIHOLE_URL}}"
+        icon: pi-hole
+        widget:
+          type: pihole
+          url: "{{HOMEPAGE_VAR_PIHOLE_URL}}"
+          version: 6
+          key: "{{HOMEPAGE_VAR_PIHOLE_TOKEN}}"
+    - Uptime:
+        href: "{{HOMEPAGE_VAR_UPTIME_URL}}"
+        icon: uptime-kuma
+- Machines:
+    - Proxmox:
+        href: "{{HOMEPAGE_VAR_PROXMOX_URL}}"
+        icon: proxmox
+        widget:
+          type: proxmox
+          url: "{{HOMEPAGE_VAR_PROXMOX_URL}}"
+          username: "{{HOMEPAGE_VAR_PROXMOX_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_PROXMOX_PASSWORD}}"
+          node: host1
+    - TrueNAS:
+        href: "{{HOMEPAGE_VAR_TRUENAS_URL}}"
+        icon: truenas
+        widget:
+          type: truenas
+          url: "{{HOMEPAGE_VAR_TRUENAS_URL}}"
+          key: "{{HOMEPAGE_VAR_TRUENAS_API_TOKEN}}"
+          enablePools: true
+- Backup:
+    - PBS:
+        href: "{{HOMEPAGE_VAR_PBS_URL}}"
+        icon: proxmox
+        widget:
+          type: proxmoxbackupserver
+          url: "{{HOMEPAGE_VAR_PBS_URL}}"
+          username: "{{HOMEPAGE_VAR_PROXMOX_BACKUP_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_PROXMOX_BACKUP_PASSWORD}}"
+    - PBS archive:
+        href: "{{HOMEPAGE_VAR_PBS_ARCHIVE_URL}}"
+        icon: proxmox
+        widget:
+          type: proxmoxbackupserver
+          url: "{{HOMEPAGE_VAR_PBS_ARCHIVE_URL}}"
+          username: "{{HOMEPAGE_VAR_PROXMOX_ARCHIVE_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_PROXMOX_ARCHIVE_PASSWORD}}"

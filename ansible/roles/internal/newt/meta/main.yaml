@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Paul Tibbetts
+  description: Installs Newt as a binary with wrapper based systemd unit.
+  license: MIT
+  min_ansible_version: "2.12"
+  galaxy_tags:
+    - newt
+    - pangolin
+    - proxy
+    - tunnel
+    - systemd
+    - networking
+
+dependencies: []

@@ -1,0 +1,6 @@
+.venv/
+*.retry
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+vault-pass.txt

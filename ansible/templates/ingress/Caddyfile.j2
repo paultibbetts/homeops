@@ -1,0 +1,145 @@
+{
+        acme_dns cloudflare {env.CF_API_TOKEN}
+}
+
+{{ ingress_services.truenas.domain }} {
+        reverse_proxy {{ ingress_services.truenas.upstream }}
+}
+
+{{ ingress_services.proxmox.domain }} {
+        reverse_proxy {{ ingress_services.proxmox.upstream }} {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+
+}
+
+{{ ingress_services.pihole.domain }} {
+        redir / /admin{uri} 308
+        reverse_proxy {{ ingress_services.pihole.upstream }}
+}
+
+{{ ingress_services.gitea.domain }} {
+        reverse_proxy {{ ingress_services.gitea.upstream }}
+}
+
+{{ ingress_services.jellyfin.domain }} {
+        reverse_proxy {{ ingress_services.jellyfin.upstream }}
+}
+
+{{ ingress_services.minio.domain }} {
+	reverse_proxy {{ ingress_services.minio.upstream }}
+}
+
+{{ ingress_services.ntfy.domain }} {
+  encode zstd gzip
+
+  reverse_proxy {{ ingress_services.ntfy.upstream }}
+
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Referrer-Policy "no-referrer"
+  }
+
+    # Redirect HTTP to HTTPS, but only for GET topic addresses, since we want
+    # it to work with curl without the annoying https:// prefix
+    @httpget {
+        protocol http
+        method GET
+        path_regexp ^/([-_a-z0-9]{0,64}$|docs/|static/)
+    }
+    redir @httpget https://{host}{uri}
+}
+
+{{ ingress_services.uptime.domain }} {
+        reverse_proxy {{ ingress_services.uptime.upstream }}
+}
+
+{{ ingress_services.beszel.domain }} {
+        request_body {
+          max_size 10MB
+        }
+        reverse_proxy {{ ingress_services.beszel.upstream }} {
+          transport http {
+            read_timeout 360s
+          }
+        }
+}
+
+{{ ingress_services.homebox.domain }} {
+  reverse_proxy {{ ingress_services.homebox.upstream }}
+}
+
+{{ ingress_services.homepage.domain }} {
+	reverse_proxy {{ ingress_services.homepage.upstream }}
+}
+
+{{ ingress_services.freshrss.domain }} {
+	@freshrss_greader path /api/greader.php /api/greader.php/*
+	@freshrss_greader_preflight {
+		method OPTIONS
+		path /api/greader.php /api/greader.php/*
+	}
+
+	handle @freshrss_greader_preflight {
+		header {
+			Access-Control-Allow-Origin "{{ ingress_freshrss_greader_cors_origin }}"
+			Access-Control-Allow-Methods "GET, POST, OPTIONS"
+			Access-Control-Allow-Headers "Authorization, Content-Type"
+			Vary "Origin"
+		}
+		respond "" 204
+	}
+
+	handle @freshrss_greader {
+		header {
+			Access-Control-Allow-Origin "{{ ingress_freshrss_greader_cors_origin }}"
+			Access-Control-Allow-Methods "GET, POST, OPTIONS"
+			Access-Control-Allow-Headers "Authorization, Content-Type"
+			Vary "Origin"
+		}
+
+		reverse_proxy {{ ingress_services.freshrss.upstream }} {
+			header_up Host {host}
+			header_up X-Forwarded-Host {host}
+			header_up X-Forwarded-Proto {scheme}
+			header_up X-Forwarded-Port 443
+			header_down -Access-Control-Allow-Origin
+			header_down -Access-Control-Allow-Methods
+			header_down -Access-Control-Allow-Headers
+			header_down -Access-Control-Allow-Credentials
+			header_down -Access-Control-Expose-Headers
+			header_down -Access-Control-Max-Age
+			header_down -Vary
+		}
+	}
+
+	handle {
+		reverse_proxy {{ ingress_services.freshrss.upstream }} {
+			header_up Host {host}
+			header_up X-Forwarded-Host {host}
+			header_up X-Forwarded-Proto {scheme}
+			header_up X-Forwarded-Port 443
+		}
+	}
+}
+
+{{ ingress_services.mealie.domain }} {
+	reverse_proxy {{ ingress_services.mealie.upstream }}
+}
+
+{{ ingress_services.mealie_enricher.domain }} {
+	reverse_proxy {{ ingress_services.mealie_enricher.upstream }}
+}
+
+{{ ingress_services.auth.domain }} {
+	reverse_proxy https://{{ ingress_services.auth.upstream }} {
+		transport http {
+			tls
+			tls_insecure_skip_verify
+		}
+	}
+}

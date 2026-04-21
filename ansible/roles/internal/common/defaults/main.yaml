@@ -1,0 +1,4 @@
+---
+common_default_shell: /bin/bash
+common_sudo_group: sudo
+common_users: []

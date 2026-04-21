@@ -1,0 +1,4 @@
+.DS_Store
+ansible/group_vars/**/zz-local.yaml
+terraform/terraform.tfvars
+terraform/*.auto.tfvars

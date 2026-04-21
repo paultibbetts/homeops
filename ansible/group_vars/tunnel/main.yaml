@@ -1,0 +1,56 @@
+# Public-safe defaults. Override locally in ansible/group_vars/tunnel/zz-local.yaml.
+# renovate: datasource=github-releases depName=fosrl/newt
+newt_version: 1.11.0
+
+# renovate: datasource=docker depName=docker.io/fosrl/pangolin
+pangolin_image: "docker.io/fosrl/pangolin:1.17.1@sha256:c8002c5acf73a6e6e85f61be38036b4eb35afeb99c4d52501c737f0257d4c673"
+# renovate: datasource=docker depName=docker.io/fosrl/gerbil
+gerbil_image: "docker.io/fosrl/gerbil:1.3.1@sha256:b16a722d5603fa74acd3e1deb86cea0b8330d015ab5325dc41e44108fe6f29c9"
+# renovate: datasource=docker depName=docker.io/traefik
+traefik_image: "docker.io/traefik:v3.6.13"
+# renovate: datasource=docker depName=docker.io/crowdsecurity/crowdsec
+crowdsec_image: "docker.io/crowdsecurity/crowdsec:v1.7.7@sha256:6ca53ad26196ca59ddd4fa692a586b73d8fcde085046163b9ca2f04887dca563"
+# MaxMind does not publish a 7.1.1 image tag; normalize during upgrade.
+geoipupdate_image: "ghcr.io/maxmind/geoipupdate@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2"
+
+# renovate: datasource=github-releases depName=fosrl/badger
+pangolin_badger_plugin_version: "v1.4.0"
+# renovate: datasource=github-releases depName=maxlerebourg/crowdsec-bouncer-traefik-plugin
+pangolin_crowdsec_bouncer_plugin_version: "v1.5.1"
+
+pangolin_install_gerbil: true
+pangolin_enable_ipv6: true
+pangolin_enable_crowdsec: true
+pangolin_enable_geoblocking: true
+pangolin_enable_email: false
+pangolin_trusted_proxy_cidrs: []
+pangolin_enable_integration_api: false
+
+pangolin_env_extra:
+  GEOIPUPDATE_EDITION_IDS: "GeoLite2-Country GeoLite2-ASN"
+  GEOIPUPDATE_FREQUENCY: "72"
+
+pangolin_disable_signup_without_invite: true
+pangolin_disable_user_create_org: true
+
+pangolin_base_domain: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          61336437373731366130343937323633356332643832363731363030663363623963613536613137
+          3564346437326336366538393561336465613966646465660a353930633839623936343438336634
+          61373133386534353832643137646237383632333635373838383734613931376135366439336434
+          3465643635303565310a393764613336633162313436333163646239313831326336666264303431
+          3331
+pangolin_dashboard_domain: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          62363262323934396331336566383533323566396530373063373661633337386364663964346536
+          3438646161653731613962383631643662633635376466310a656561336163623232663863346265
+          33316162646338383265656132353539636662616161636638363366633936663039653366343162
+          3035323063373064360a383431383731303339643136373861326434373466363561303933336534
+          39343439356134356337643839363038373665306339633134653961363733346463
+pangolin_integration_api_domain: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          65393136653034653461346339643632363638393033326631666334386239646133343064373633
+          6566353739653333333633323038343831323162666332650a313936613835396231613736653466
+          64643131306366326631353631313639303261663836306666666636383661306534663166346532
+          3037303366303931630a346564303938343263653665643037313735393939396639653038646439
+          66643865333134316463626135626662663132633964653264333265396139613461
