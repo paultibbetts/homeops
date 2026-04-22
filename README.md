@@ -68,7 +68,7 @@ Powered by TrueNAS on a [custom NAS](hardware/nas/README.md).
 ### Disks
 
 - **NVME** for apps, media and general storage
-- **SSD** for internal purposes
+- **SSD** for TrueNAS apps and internal system data
 - **HDD** for archiving and backups
 
 #### Object storage
