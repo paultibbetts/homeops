@@ -76,7 +76,7 @@ Operationally, Docker and systemd must already be available before this role run
 
 ## Example Playbook
 
-The repo already uses this via [`ansible/playbooks/renovate.yaml`](/Users/paul/code/homeops/ansible/playbooks/renovate.yaml:1):
+The repo already uses this via [`ansible/playbooks/renovate.yaml`](../../../playbooks/renovate.yaml):
 
 ```yaml
 - hosts: apps

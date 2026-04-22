@@ -40,7 +40,7 @@ Operationally, Docker and the Compose plugin must already be installed before th
 
 ## Example Playbook
 
-The repo already uses this via [`ansible/playbooks/uptime.yaml`](/Users/paul/code/homeops/ansible/playbooks/uptime.yaml:1):
+The repo already uses this via [`ansible/playbooks/uptime.yaml`](../../../playbooks/uptime.yaml):
 
 ```yaml
 - hosts: monpi

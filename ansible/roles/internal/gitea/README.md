@@ -67,7 +67,7 @@ None.
 
 ## Example Playbook
 
-The repo already uses this role via [`ansible/playbooks/git.yaml`](/Users/paul/code/homeops/ansible/playbooks/git.yaml:1):
+The repo already uses this role via [`ansible/playbooks/git.yaml`](../../../playbooks/git.yaml):
 
 ```yaml
 - hosts: git
