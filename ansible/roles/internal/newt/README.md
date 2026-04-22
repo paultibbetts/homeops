@@ -1,7 +1,6 @@
 # Newt
 
-Installs the Newt binary and wires it into a systemd service using a small
-wrapper script and an environment file for credentials.
+Installs the Newt binary and wires it into a systemd service using a small wrapper script and an environment file for credentials.
 
 ## Requirements
 
@@ -41,102 +40,108 @@ The (optional) blueprint support requires the blueprint to have the ID of the si
 
 ## Example Playbook
 
-    - hosts: newt_hosts
-      roles:
-        - role: newt
-          vars:
-            newt_endpoint: "https://app.pangolin.net"
-            newt_id: "{{ vault_newt_id }}"
-            newt_secret: "{{ vault_newt_secret }}"
+```yaml
+- hosts: newt_hosts
+  roles:
+    - role: newt
+      vars:
+        newt_endpoint: "https://app.pangolin.net"
+        newt_id: "{{ vault_newt_id }}"
+        newt_secret: "{{ vault_newt_secret }}"
+```
 
 I use Pangolin to expose my IdP that I then use for SSO to secure access to resources.
 
 Because of this I first apply a blueprint that only exposes the auth:
 
-    - hosts: newt_hosts
-      roles:
-        - role: newt
-      vars:
-        newt_endpoint: "https://app.pangolin.net"
-        newt_id: "{{ vault_newt_id }}"
-        newt_secret: "{{ vault_newt_secret }}"
-        newt_blueprint_mode: "auth-only"
-        newt_blueprint_auth_only:
-          public-resources:
-            auth:
-              name: "Auth"
-              protocol: http
-              full-domain: "auth.example.com"
-              targets:
-                - site: "home" # this must match the ID of the site
-                  hostname: "app.example.internal"
-                  method: http
-                  port: 8080
+```yaml
+- hosts: newt_hosts
+  roles:
+    - role: newt
+  vars:
+    newt_endpoint: "https://app.pangolin.net"
+    newt_id: "{{ vault_newt_id }}"
+    newt_secret: "{{ vault_newt_secret }}"
+    newt_blueprint_mode: "auth-only"
+    newt_blueprint_auth_only:
+      public-resources:
+        auth:
+          name: "Auth"
+          protocol: http
+          full-domain: "auth.example.com"
+          targets:
+            - site: "home" # this must match the ID of the site
+              hostname: "app.example.internal"
+              method: http
+              port: 8080
+```
 
-after which I register the IdP in Pangolin to use for SSO and then apply the full blueprint.
+After that I register the IdP in Pangolin for SSO, then apply the full blueprint.
 
 The following example uses YAML anchors and so should be placed in `group_vars` or `host_vars` in a `.yaml` file.
 
 I use Ansible Vault to encrypt my blueprint in a `vault.yaml` file to avoid exposing my tunneled resources in my public git repo.
 
-    # Example `group_vars` snippet showing split blueprints.
-    #
-    # - `newt_blueprint_auth_only` exposes the IdP resource (no SSO).
-    # - `newt_blueprint_full` exposes the IdP resource plus an example app secured by SSO.
-    #
-    # The `auto-login-idp: 1` assumes you've registered your IdP in Pangolin and its ID is `1`.
+```yaml
+# Example `group_vars` snippet showing split blueprints.
+#
+# - `newt_blueprint_auth_only` exposes the IdP resource (no SSO).
+# - `newt_blueprint_full` exposes the IdP resource plus an example app secured by SSO.
+#
+# The `auto-login-idp: 1` assumes you've registered your IdP in Pangolin and its ID is `1`.
 
-    newt_site_name: &newt_site_name "home"
+newt_site_name: &newt_site_name "home"
 
-    newt_blueprint_auth_resource: &newt_blueprint_auth_resource
-      name: "Auth"
+newt_blueprint_auth_resource: &newt_blueprint_auth_resource
+  name: "Auth"
+  protocol: http
+  full-domain: "auth.example.com"
+  tls-server-name: "auth.example.com"
+  targets:
+    - site: *newt_site_name
+      hostname: "auth.internal.example"
+      method: http
+      port: 8080
+
+newt_blueprint_auth_only:
+  public-resources:
+    auth: *newt_blueprint_auth_resource
+
+newt_blueprint_full:
+  public-resources:
+    auth: *newt_blueprint_auth_resource
+    app:
+      name: "Example App"
       protocol: http
-      full-domain: "auth.example.com"
-      tls-server-name: "auth.example.com"
+      full-domain: "app.example.com"
+      tls-server-name: "app.example.com"
+      auth:
+        sso-enabled: true
+        sso-roles:
+          - Member
+        auto-login-idp: 1
+      rules:
+        - action: pass
+          match: country
+          value: GB
+        - action: deny
+          match: country
+          value: ALL
       targets:
         - site: *newt_site_name
-          hostname: "auth.internal.example"
+          hostname: "app.example.internal"
           method: http
           port: 8080
-
-    newt_blueprint_auth_only:
-      public-resources:
-        auth: *newt_blueprint_auth_resource
-
-    newt_blueprint_full:
-      public-resources:
-        auth: *newt_blueprint_auth_resource
-        app:
-          name: "Example App"
-          protocol: http
-          full-domain: "app.example.com"
-          tls-server-name: "app.example.com"
-          auth:
-            sso-enabled: true
-            sso-roles:
-              - Member
-            auto-login-idp: 1
-          rules:
-            - action: pass
-              match: country
-              value: GB
-            - action: deny
-              match: country
-              value: ALL
-          targets:
-            - site: *newt_site_name
-              hostname: "app.example.internal"
-              method: http
-              port: 8080
-              healthcheck:
-                hostname: "app.example.internal"
-                port: 8080
-                enabled: true
-                path: /
-                interval: 30
-                timeout: 5
-                method: GET
-                status: 200
+          healthcheck:
+            hostname: "app.example.internal"
+            port: 8080
+            enabled: true
+            path: /
+            interval: 30
+            timeout: 5
+            method: GET
+            status: 200
+```
 
 ## License
 

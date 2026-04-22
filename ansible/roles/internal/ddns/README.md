@@ -1,4 +1,4 @@
-# DDNS Role
+# DDNS
 
 Installs a DuckDNS updater by templating a small shell script and scheduling it via cron. The role ensures `curl` is present, writes the update script, and runs it every hour to keep the public DNS record current.
 
