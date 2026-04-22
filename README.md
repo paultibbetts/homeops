@@ -66,11 +66,11 @@ It was decoupled from my original homelab repo, which is now a Kubernetes setup 
 
 Powered by TrueNAS on a [custom NAS](hardware/nas/README.md).
 
-### Disks
+### Drives
 
 - **NVME** for apps, media and general storage
-- **SSD** for TrueNAS apps and internal system data
-- **HDD** for archiving and backups
+- **SSD** boot drive, plus another for TrueNAS apps
+- **HDD** for backups and archiving
 
 #### Object storage
 
