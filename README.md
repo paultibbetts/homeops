@@ -29,13 +29,16 @@ It was split out from my homelab repo, which is now a Kubernetes setup.
 - Simple
 - Stable
 - Use tools I already know and understand
-- Get experience using Proxmox
+- Infrastructure as Code
+- Gain experience using Proxmox
 - Let my friends and family have access to some of my services
 
 ### Non-goals
 
 - High Availability
 - Single-command setup
+- Fully automated
+- Recreate GitOps in Ansible
 - Create a generic homelab framework for others to use
 
 ## Roadmap
@@ -49,6 +52,8 @@ It was split out from my homelab repo, which is now a Kubernetes setup.
 - [ ] replace [pass](https://www.passwordstore.org/) with [SOPS](https://getsops.io/)
 - [ ] add a dedicated secret manager like [Vault](https://www.hashicorp.com/en/products/vault)/[OpenBao](https://openbao.org/) or [Infisical](https://infisical.com/)
 - [ ] standardise Ansible Vault usage
+- [ ] use [Packer](https://developer.hashicorp.com/packer) for VM images
+- [ ] better observibility - most likely the [Grafana](https://grafana.com/) "LGTM" stack
 - [ ] reduce/remove manual steps for Pangolin tunnel setup
 - [ ] test new apps in my Kubernetes lab environment
 - [ ] add new apps and services to this repo
