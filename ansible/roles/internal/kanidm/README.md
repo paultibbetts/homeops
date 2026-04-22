@@ -1,6 +1,8 @@
 # Kanidm
 
-Deploys the [Kanidm](https://kanidm.com/) identity and access management server as a single Docker Compose application. The role renders a `server.toml`, writes an `.env` file consumed by Compose, and can generate a self-signed TLS bundle for the service.
+Deploys the [Kanidm](https://kanidm.com/) identity and access management server as a single Docker Compose application.
+
+The role renders a `server.toml`, writes an `.env` file consumed by Compose, and can generate a self-signed TLS bundle for the service.
 
 ## Requirements
 

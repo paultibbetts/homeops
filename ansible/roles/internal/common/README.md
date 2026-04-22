@@ -2,8 +2,6 @@
 
 Applies the baseline configuration shared by Debian/Ubuntu hosts in this repo.
 
-The role refreshes apt metadata, sets the hostname, installs a small package baseline, hardens SSH, enables time sync and unattended upgrades, and manages local user accounts with optional SSH keys and sudo access.
-
 ## Requirements
 
 - Debian-family managed host. The role asserts `ansible_facts.os_family == "Debian"`.
