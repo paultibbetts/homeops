@@ -2,6 +2,9 @@
 # gitea download url
 gitea_download_url: "https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-{{ ansible_facts['system'] | lower }}-{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else ansible_facts['architecture'] }}"
 
+# checksum file published alongside the release binary
+gitea_download_checksum_url: "{{ gitea_download_url }}.sha256"
+
 # default init scripts location
 initd_conf_dir: /etc/init.d
 

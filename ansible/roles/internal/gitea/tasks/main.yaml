@@ -29,6 +29,7 @@
 - name: Download Gitea binary
   ansible.builtin.get_url:
     url: "{{ gitea_download_url }}"
+    checksum: "sha256:{{ gitea_download_checksum_url }}"
     dest: "{{ gitea_binary }}"
     owner: "{{ gitea_user }}"
     group: "{{ gitea_group }}"
