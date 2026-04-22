@@ -49,7 +49,7 @@ Defaults live in `defaults/main.yaml`.
 ## What The Role Deploys
 
 - Creates `{{ renovate_root_dir }}`.
-- Renders `config.js` from [`templates/config.js.j2`](./templates/config.js.j2).
+- Renders `config.js` from [`ansible/roles/internal/renovate/templates/config.js.j2`](./templates/config.js.j2).
 - Writes an env file containing:
   - `RENOVATE_TOKEN`
   - `DOCKERHUB_USERNAME`

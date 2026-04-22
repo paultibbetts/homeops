@@ -25,7 +25,7 @@ Defaults live in `defaults/main.yaml` unless noted.
 
 ## What The Role Deploys
 
-- Copies [`files/docker-compose.yaml`](./files/docker-compose.yaml) to `{{ uptime_kuma_app_path }}/docker-compose.yaml`.
+- Copies [`ansible/roles/internal/uptime_kuma/files/docker-compose.yaml`](./files/docker-compose.yaml) to `{{ uptime_kuma_app_path }}/docker-compose.yaml`.
 - Creates `{{ uptime_kuma_app_path }}/uptime-kuma-data` for persistent application data.
 - Starts a single `louislam/uptime-kuma` container pinned by digest.
 - Exposes the UI on host port `3001`.

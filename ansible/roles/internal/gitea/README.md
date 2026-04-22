@@ -44,7 +44,7 @@ Additional role variables are defined in `vars/main.yaml` and are effectively in
 - Creates the Gitea group and user.
 - Ensures the parent directory of `gitea_binary` exists and is owned by the Gitea user/group.
 - Downloads the Gitea binary from `gitea_download_url`.
-- Renders [`templates/gitea.env.j2`](./templates/gitea.env.j2) to `gitea_envfile`.
+- Renders [`ansible/roles/internal/gitea/templates/gitea.env.j2`](./templates/gitea.env.j2) to `gitea_envfile`.
 - Installs either:
   - a systemd unit at `{{ systemd_units_dir }}/gitea.service`, or
   - a SysV init script at `{{ initd_conf_dir }}/gitea`
