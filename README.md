@@ -1,10 +1,10 @@
 # Home Operations
 
-This repo contains my stable Terraform + Ansible based "HomeProd".
+This repo contains my Terraform + Ansible based "HomeProd" environment.
 
 It's intentionally boring. It runs real workloads with real users, including myself, so I don't want it breaking.
 
-It was split out from my homelab repo, which is now a Kubernetes setup.
+It was decoupled from my original homelab repo, which is now a Kubernetes setup that I'm allowed to break.
 
 > [!CAUTION]
 > This is an active working repository that I'm sharing publicly. It was not designed for others to use.
@@ -30,7 +30,6 @@ It was split out from my homelab repo, which is now a Kubernetes setup.
 - Stable
 - Use tools I already know and understand
 - Infrastructure as Code
-- Gain experience using Proxmox
 - Let my friends and family have access to some of my services
 
 ### Non-goals
@@ -39,9 +38,10 @@ It was split out from my homelab repo, which is now a Kubernetes setup.
 - Single-command setup
 - Fully automated
 - Recreate GitOps in Ansible
+- Self-host every single service
 - Create a generic homelab framework for others to use
 
-## Roadmap
+## Ideas for the future
 
 - [ ] test my backups
 - [ ] test disaster recovery processes
@@ -52,12 +52,13 @@ It was split out from my homelab repo, which is now a Kubernetes setup.
 - [ ] replace [pass](https://www.passwordstore.org/) with [SOPS](https://getsops.io/)
 - [ ] add a dedicated secret manager like [Vault](https://www.hashicorp.com/en/products/vault)/[OpenBao](https://openbao.org/) or [Infisical](https://infisical.com/)
 - [ ] standardise Ansible Vault usage
-- [ ] use [Packer](https://developer.hashicorp.com/packer) for VM images
-- [ ] better observibility - most likely the [Grafana](https://grafana.com/) "LGTM" stack
-- [ ] reduce/remove manual steps for Pangolin tunnel setup
+- [ ] use [Packer](https://developer.hashicorp.com/packer) for VM image creation
+- [ ] reduce/remove manual steps for the Pangolin tunnel setup
 - [ ] test new apps in my Kubernetes lab environment
+- [ ] better observability - most likely the [Grafana](https://grafana.com/) "LGTM" stack
+- [ ] find a Jellyfin-for-books
 - [ ] add new apps and services to this repo
-- [ ] decide if I should replace this setup with Kubernetes
+- [ ] decide if I should enhance/replace this setup with Kubernetes
 - [ ] consider a [mesh VPN](https://tailscale.com/learn/understanding-mesh-vpns) like [Tailscale](https://tailscale.com/) or [NetBird](https://netbird.io/)
 - [ ] test my backups again
 
