@@ -4,7 +4,7 @@ This repo contains my Terraform + Ansible based "HomeProd" environment.
 
 It's intentionally boring. It runs real workloads with real users, including myself, so I don't want it breaking.
 
-It was decoupled from my original homelab repo, which is now a Kubernetes setup that I'm allowed to break.
+It was decoupled from my original homelab repo, which is now a Kubernetes setup that I am allowed to break.
 
 > [!CAUTION]
 > This is an active working repository that I'm sharing publicly. It was not designed for others to use.
@@ -93,7 +93,7 @@ Powered by Proxmox on an [Intel NUC](hardware/nuc/README.md).
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/kanidm.svg" alt="Kanidm" width="32"> | [Kanidm](https://kanidm.com/) | Identity management |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/mealie.svg" alt="Mealie" width="32"> | [Mealie](https://mealie.io) | Recipes, meal planner, shopping list |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/mysql.svg" alt="MySQL" width="32"> | [MySQL](https://www.mysql.com/) | SQL database |
-| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/ntfy.svg" alt="ntfy" width="32"> | [ntfy](https://ntfy.sh) | Notifications to my computers and phone |
+| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/ntfy.svg" alt="ntfy" width="32"> | [ntfy](https://ntfy.sh) | Notifications sent to my laptop and phone |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/pi-hole.svg" alt="Pi-hole" width="32"> | [Pi-hole](https://pi-hole.net/) | Internal DNS, DHCP, and blocking ads |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/pivpn.png" alt="PiVPN" width="32"> | [PiVPN](https://pivpn.io/) | VPN setup using [Wireguard](https://www.wireguard.com/) and [Duck DNS](https://www.duckdns.org/) |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/postgres.svg" alt="Postgres" width="32"> | [Postgres](https://www.postgresql.org) | SQL database |
@@ -107,8 +107,8 @@ Running on a [Raspberry Pi](hardware/monpi/README.md).
 
 | Logo | Name | Description |
 |------|------|-------------|
-| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/uptime-kuma.svg" alt="Uptime Kuma" width="32"> | [Uptime Kuma](https://uptime.kuma.pet/) | Uptime monitoring |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/beszel-light.svg" alt="Beszel" width="32"> | [Beszel](https://www.beszel.dev/) | Server monitoring |
+| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/uptime-kuma.svg" alt="Uptime Kuma" width="32"> | [Uptime Kuma](https://uptime.kuma.pet/) | Uptime monitoring |
 
 ## Network
 
@@ -120,7 +120,9 @@ Running on a [Raspberry Pi](hardware/monpi/README.md).
 
 [Pi-hole](https://pi-hole.net/) running on an Ubuntu Server VM in Proxmox on the Intel NUC.
 
-It also blocks adverts.
+My ISP router sucks and doesn't have enough RAM to show the admin interface so I use Pi-hole for DHCP. I really should buy a better router.
+
+Pi-hole also blocks adverts.
 
 ### LAN
 
