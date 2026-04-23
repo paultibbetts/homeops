@@ -9,9 +9,20 @@
     update_cache: true
     cache_valid_time: 3600
 
-- ansible.builtin.import_tasks: hostname.yaml
-- ansible.builtin.import_tasks: packages.yaml
-- ansible.builtin.import_tasks: ssh.yaml
-- ansible.builtin.import_tasks: time.yaml
-- ansible.builtin.import_tasks: updates.yaml
-- ansible.builtin.import_tasks: users.yaml
+- name: Configure hostname
+  ansible.builtin.import_tasks: hostname.yaml
+
+- name: Install baseline packages
+  ansible.builtin.import_tasks: packages.yaml
+
+- name: Configure SSH
+  ansible.builtin.import_tasks: ssh.yaml
+
+- name: Configure time sync
+  ansible.builtin.import_tasks: time.yaml
+
+- name: Configure unattended upgrades
+  ansible.builtin.import_tasks: updates.yaml
+
+- name: Manage local users
+  ansible.builtin.import_tasks: users.yaml

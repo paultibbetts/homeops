@@ -11,7 +11,7 @@
   vars:
     compose_app_user: "{{ app_user | default(ops_user | default(ansible_facts['user_id'])) }}"
     compose_app_group: "{{ app_group | default(app_user | default(ops_user | default(ansible_facts['user_id']))) }}"
-    compose_app_become_fs: "{{ app_path is match('^/srv/') }}"
+    compose_app_become_fs: "{{ app_become | default(app_path is match('^/')) | bool }}"
     compose_app_volume_paths: >-
       {{ volume_dirs | default([]) | map('regex_replace', '^(?!/)', app_path ~ '/') | list }}
   block:

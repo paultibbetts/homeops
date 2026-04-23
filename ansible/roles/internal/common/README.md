@@ -24,7 +24,8 @@ Defaults live in `defaults/main.yaml` unless noted.
 | Key | Required | Description |
 | --- | --- | --- |
 | `name` | yes | Local username to manage. |
-| `password` | no | Plaintext password value passed through Ansible's `password_hash('sha256', 'mmmsalt')`. In practice this should come from Vault. |
+| `password` | no | Plaintext password value hashed with SHA-512 and a stable per-user salt. In practice this should come from Vault. |
+| `password_hash` | no | Pre-hashed password value passed directly to the user module. Preferred when you want full control over the hash. |
 | `shell` | no | Per-user shell override. Defaults to `common_default_shell`. |
 | `state` | no | User state, defaults to `present`. |
 | `sudo` | no | If `true`, add the user to `common_sudo_group`. |
@@ -43,6 +44,38 @@ Defaults live in `defaults/main.yaml` unless noted.
 - Installs `unattended-upgrades` and writes `/etc/apt/apt.conf.d/20auto-upgrades`.
 - Ensures `sudo` and the sudo group exist.
 - Creates and updates users from `common_users`, authorizes SSH keys, and manages passwordless sudo snippets when requested.
+
+## Included Task Helpers
+
+The role also contains task files that other playbooks and roles include directly.
+
+### `tasks/assert_container_runtime.yaml`
+
+Validates that a container runtime command exists and, by default, supports Compose.
+
+| Variable | Required | Default | Description |
+| --- | --- | --- | --- |
+| `container_runtime_command` | no | `docker` | Runtime command to check. |
+| `container_runtime_needs_compose` | no | `true` | When true, also checks `<runtime> compose version`. |
+| `container_runtime_install_hint` | no | Docker install hint | Extra text appended to failure messages. |
+
+### `tasks/deploy_compose_app.yaml`
+
+Stages a Compose project directory and runs `community.docker.docker_compose_v2`.
+
+| Variable | Required | Default | Description |
+| --- | --- | --- | --- |
+| `app_name` | yes | unset | Compose project name and lookup name for extra files under `ansible/files/apps/<app_name>`. |
+| `app_path` | yes | unset | Project directory where `docker-compose.yaml`, `.env`, and relative volume directories are managed. |
+| `compose_src` | yes | unset | Source compose file copied to `{{ app_path }}/docker-compose.yaml`. |
+| `app_user` | no | `ops_user`, then `ansible_facts.user_id` | Owner for managed project files and directories. |
+| `app_group` | no | `app_user`, then `ops_user`, then `ansible_facts.user_id` | Group for managed project files and directories. |
+| `app_become` | no | `true` for absolute `app_path` values | Controls privilege escalation for filesystem tasks. |
+| `env_template` | no | unset | Template rendered to `{{ app_path }}/.env` with mode `0600`. |
+| `volume_dirs` | no | `[]` | Relative entries are created under `app_path`; absolute entries are used as-is. |
+| `extra_copy_dirs` | no | `[]` | Directory names copied from `ansible/files/apps/<app_name>/`. |
+| `extra_copy_files` | no | `[]` | File names copied from `ansible/files/apps/<app_name>/`. |
+| `enforce_volume_ownership` | no | `false` | Recursively re-owns volume directories after Compose runs. |
 
 ## Dependencies
 

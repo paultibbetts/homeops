@@ -14,4 +14,5 @@
     regexp: '^127\.0\.1\.1\s+'
     line: "127.0.1.1 {{ host_fqdn }} {{ host_short }}"
     create: true
+    mode: "0644"
   when: ansible_facts.os_family == "Debian"
