@@ -30,7 +30,7 @@ All variables live under `defaults/main.yaml` unless noted.
 | `kanidm_tls_generate`          | `true`                                 | When true the role calls `openssl` to mint a self-signed certificate if one does not already exist. Set to false to supply your own assets. |
 | `kanidm_tls_validity_days`     | `365`                                  | Number of days the generated certificate remains valid.                                                                                     |
 | `kanidm_tls_subject_alt_names` | `[ "DNS:{{ kanidm_domain }}" ]`        | Additional SAN entries appended when generating certificates.                                                                               |
-| `apps_path` (vars)             | `/srv/www/apps`                        | Shared base path consumed by the compose deployment tasks; override if your fleet uses a different root.                                    |
+| `apps_path` (vars)             | `/srv/www/apps`                        | Shared base path consumed by the compose deployment tasks; override if you use a different root.                                    |
 
 This role does not bootstrap Kanidm admin credentials. Use Kanidm's documented account recovery flow to initialize or recover the built-in `admin` and `idm_admin` accounts after deployment.
 
