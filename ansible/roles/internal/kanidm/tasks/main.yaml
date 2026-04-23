@@ -43,6 +43,30 @@
     - not ansible_check_mode
     - kanidm_tls_generate | bool
 
+- name: Check supplied Kanidm TLS files
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  loop:
+    - "{{ kanidm_tls_key_path }}"
+    - "{{ kanidm_tls_chain_path }}"
+  register: kanidm_tls_files
+  when:
+    - not ansible_check_mode
+    - not kanidm_tls_generate | bool
+
+- name: Assert supplied Kanidm TLS files exist
+  ansible.builtin.assert:
+    that:
+      - item.stat.exists
+    fail_msg: >-
+      kanidm_tls_generate is false, so {{ item.item }} must already exist.
+  loop: "{{ kanidm_tls_files.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when:
+    - not ansible_check_mode
+    - not kanidm_tls_generate | bool
+
 - name: Deploy Kanidm server configuration
   ansible.builtin.template:
     src: server.toml.j2

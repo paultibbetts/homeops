@@ -8,7 +8,7 @@ The role renders a `server.toml`, writes an `.env` file consumed by Compose, and
 
 - Docker Engine and docker-compose plugin pre-installed on the target host.
 - The shared `roles/internal/common/tasks/deploy_compose_app.yaml` task file (invoked internally) to stage assets and manage container lifecycle.
-- OpenSSL available on the control node when `kanidm_tls_generate` is true (default).
+- OpenSSL available on the target host when `kanidm_tls_generate` is true (default).
 
 The role validates `docker compose` availability before attempting any Compose deployment work.
 
@@ -30,7 +30,6 @@ All variables live under `defaults/main.yaml` unless noted.
 | `kanidm_tls_generate`          | `true`                                 | When true the role calls `openssl` to mint a self-signed certificate if one does not already exist. Set to false to supply your own assets. |
 | `kanidm_tls_validity_days`     | `365`                                  | Number of days the generated certificate remains valid.                                                                                     |
 | `kanidm_tls_subject_alt_names` | `[ "DNS:{{ kanidm_domain }}" ]`        | Additional SAN entries appended when generating certificates.                                                                               |
-| `apps_path` (vars)             | `/srv/www/apps`                        | Shared base path consumed by the compose deployment tasks; override if you use a different root.                                    |
 
 This role does not bootstrap Kanidm admin credentials. Use Kanidm's documented account recovery flow to initialize or recover the built-in `admin` and `idm_admin` accounts after deployment.
 
@@ -52,7 +51,7 @@ The role includes the shared compose deployment tasks internally, but it does no
     - role: kanidm
 ```
 
-This example demonstrates overriding the domain and opting out of certificate generation (to supply a trusted cert bundle).
+This example demonstrates overriding the domain and opting out of certificate generation. When `kanidm_tls_generate` is false, provide readable files at `kanidm_tls_chain_path` and `kanidm_tls_key_path` before applying the role.
 
 ## Check Mode
 
