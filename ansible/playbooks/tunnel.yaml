@@ -1,5 +1,6 @@
 ---
-- hosts: tunnel:&site_edge
+- name: Pangolin tunnel edge
+  hosts: tunnel:&site_edge
   gather_facts: true
   become: true
   roles:
@@ -8,7 +9,8 @@
   tags:
     - pangolin
 
-- hosts: tunnel:&site_home
+- name: Newt tunnel home
+  hosts: tunnel:&site_home
   become: true
   vars:
     newt_endpoint: "{{ vault_newt_endpoint }}"

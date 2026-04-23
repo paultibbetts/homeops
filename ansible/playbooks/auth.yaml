@@ -1,5 +1,6 @@
 ---
-- hosts: auth
+- name: Auth
+  hosts: auth
   gather_facts: true
   become: true
   roles:

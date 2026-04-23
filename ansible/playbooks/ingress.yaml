@@ -1,5 +1,6 @@
 ---
-- hosts: ingress
+- name: Ingress
+  hosts: ingress
   become: true
   roles:
     - role: paultibbetts.caddy

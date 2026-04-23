@@ -1,3 +1,6 @@
 ---
-- ansible.builtin.import_playbook: mysql.yaml
-- ansible.builtin.import_playbook: postgres.yaml
+- name: MySQL
+  ansible.builtin.import_playbook: mysql.yaml
+
+- name: PostgreSQL
+  ansible.builtin.import_playbook: postgres.yaml

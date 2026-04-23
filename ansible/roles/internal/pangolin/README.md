@@ -37,7 +37,7 @@ See `defaults/main.yaml` for the full list. The key variables are:
 
 **Images**
 
-- `pangolin_image`, `gerbil_image`, `traefik_image`, `crowdsec_image`, `geoipupdate_image`
+- `pangolin_image`, `pangolin_gerbil_image`, `pangolin_traefik_image`, `pangolin_crowdsec_image`, `pangolin_geoipupdate_image`
 
 Use full image references. Prefer `repository:tag@sha256:digest` for deployed
 inventory values once the stack has been upgraded through any required upstream
@@ -98,8 +98,8 @@ This brings up Pangolin + Traefik + Gerbil with LetsEncrypt, without CrowdSec/Ge
     pangolin_server_secret: "{{ vault_pangolin_server_secret }}"
 
     pangolin_image: "docker.io/fosrl/pangolin:1.10.0@sha256:..."
-    gerbil_image: "docker.io/fosrl/gerbil:1.10.0@sha256:..."
-    traefik_image: "docker.io/traefik:3.3.6@sha256:..."
+    pangolin_gerbil_image: "docker.io/fosrl/gerbil:1.10.0@sha256:..."
+    pangolin_traefik_image: "docker.io/traefik:3.3.6@sha256:..."
     pangolin_install_gerbil: true
 ```
 

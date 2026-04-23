@@ -2,42 +2,34 @@
 - name: Validate container runtime task inputs
   ansible.builtin.assert:
     that:
-      - container_runtime_command_effective | length > 0
+      - common_container_runtime_command_effective | length > 0
     fail_msg: >
       container runtime validation requires a non-empty command value.
   vars:
-    container_runtime_command_effective: "{{ container_runtime_command | default('docker') }}"
+    common_container_runtime_command_effective: "{{ container_runtime_command | default('docker') }}"
 
-- name: Check {{ container_runtime_command | default('docker') }} CLI availability
+- name: Check CLI availability for {{ container_runtime_command | default('docker') }}
   ansible.builtin.command:
     cmd: "{{ container_runtime_command | default('docker') }} --version"
-  register: container_runtime_cli_check
+  register: common_container_runtime_cli_check
   changed_when: false
   failed_when: false
 
-- name: Assert {{ container_runtime_command | default('docker') }} CLI is available
+- name: Assert CLI is available for {{ container_runtime_command | default('docker') }}
   ansible.builtin.assert:
     that:
-      - container_runtime_cli_check.rc == 0
-    fail_msg: >-
-      This role requires `{{ container_runtime_command | default('docker') }}` to be installed
-      and available.
-      {{ container_runtime_install_hint | default('Install Docker and the Compose plugin first, for example by applying the geerlingguy.docker role in the calling playbook.') }}
+      - common_container_runtime_cli_check.rc == 0
 
-- name: Check {{ container_runtime_command | default('docker') }} compose support
+- name: Check compose support for {{ container_runtime_command | default('docker') }}
   ansible.builtin.command:
     cmd: "{{ container_runtime_command | default('docker') }} compose version"
-  register: container_runtime_compose_check
+  register: common_container_runtime_compose_check
   changed_when: false
   failed_when: false
   when: container_runtime_needs_compose | default(true) | bool
 
-- name: Assert {{ container_runtime_command | default('docker') }} compose support is available
+- name: Assert compose support is available for {{ container_runtime_command | default('docker') }}
   ansible.builtin.assert:
     that:
-      - container_runtime_compose_check.rc == 0
-    fail_msg: >-
-      This role requires `{{ container_runtime_command | default('docker') }} compose`
-      support.
-      {{ container_runtime_install_hint | default('Install Docker and the Compose plugin first, for example by applying the geerlingguy.docker role in the calling playbook.') }}
+      - common_container_runtime_compose_check.rc == 0
   when: container_runtime_needs_compose | default(true) | bool

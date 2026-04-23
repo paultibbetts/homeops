@@ -13,7 +13,7 @@ services:
       retries: 15
 {% if pangolin_install_gerbil | bool %}
   gerbil:
-    image: "{{ gerbil_image }}"
+    image: "{{ pangolin_gerbil_image }}"
     container_name: gerbil
     restart: unless-stopped
     depends_on:
@@ -54,7 +54,7 @@ services:
         - lapi
         - status
       timeout: 5s
-    image: "{{ crowdsec_image }}"
+    image: "{{ pangolin_crowdsec_image }}"
     labels:
       - traefik.enable=false
     ports:
@@ -70,13 +70,13 @@ services:
     container_name: geoipupdate
     env_file:
       - "{{ pangolin_env_file_path }}"
-    image: "{{ geoipupdate_image }}"
+    image: "{{ pangolin_geoipupdate_image }}"
     restart: unless-stopped
     volumes:
       - "{{ pangolin_project_dir }}/config/GeoLite2:/usr/share/GeoIP"
 {% endif %}
   traefik:
-    image: "{{ traefik_image }}"
+    image: "{{ pangolin_traefik_image }}"
     container_name: traefik
     restart: unless-stopped
 {% if pangolin_install_gerbil | bool %}

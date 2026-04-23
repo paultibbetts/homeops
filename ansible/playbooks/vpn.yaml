@@ -1,5 +1,6 @@
 ---
-- hosts: vpn
+- name: VPN
+  hosts: vpn
   become: true
   roles:
     - role: ddns

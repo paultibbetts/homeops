@@ -6,7 +6,7 @@ gitea_version: 1.21.7
 gitea_binary: /home/gitea/bin/gitea
 
 # Path to the file containing the ENV configuration variables for gitea
-gitea_envfile: /etc/default/gitea
+gitea_env_file: /etc/default/gitea
 
 # Gitea home directory
 gitea_working_directory: /home/gitea

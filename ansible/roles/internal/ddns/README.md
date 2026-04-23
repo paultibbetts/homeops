@@ -15,7 +15,7 @@ Defaults live under `defaults/main.yaml` unless noted.
 
 | Variable          | Default         | Description                                                        |
 | ----------------- | --------------- | ------------------------------------------------------------------ |
-| `ddns_script`     | `/root/duck.sh` | Path where the DuckDNS update script is written.                   |
+| `ddns_script_path` | `/root/duck.sh` | Path where the DuckDNS update script is written.                  |
 | `duckdns_domain`  | required        | DuckDNS domain to update. Supply via inventory or Vault.           |
 | `duckdns_token`   | required        | API token for the DuckDNS account. Supply via inventory or Vault.  |
 
@@ -32,7 +32,7 @@ None.
   vars:
     duckdns_domain: my-duckdns-subdomain
     duckdns_token: "{{ vault_duckdns_token }}"
-    ddns_script: /usr/local/bin/duckdns-update
+    ddns_script_path: /usr/local/bin/duckdns-update
   roles:
     - role: ddns
 ```

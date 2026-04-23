@@ -1,2 +1,2 @@
 ---
-ddns_script: /root/duck.sh
+ddns_script_path: /root/duck.sh

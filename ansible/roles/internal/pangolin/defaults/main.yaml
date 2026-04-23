@@ -93,14 +93,14 @@ pangolin_crowdsec_update_max_failure: 0
 # Container images. Prefer overriding these with full image refs, ideally
 # `repository:tag@sha256:digest`, in inventory.
 pangolin_image: "docker.io/fosrl/pangolin:{{ pangolin_image_tag }}"
-gerbil_image: "docker.io/fosrl/gerbil:{{ gerbil_image_tag }}"
-traefik_image: "docker.io/traefik:{{ traefik_image_tag }}"
-crowdsec_image: "docker.io/crowdsecurity/crowdsec:{{ crowdsec_image_tag }}"
-geoipupdate_image: "ghcr.io/maxmind/geoipupdate:{{ geoipupdate_image_tag }}"
+pangolin_gerbil_image: "docker.io/fosrl/gerbil:{{ pangolin_gerbil_image_tag }}"
+pangolin_traefik_image: "docker.io/traefik:{{ pangolin_traefik_image_tag }}"
+pangolin_crowdsec_image: "docker.io/crowdsecurity/crowdsec:{{ pangolin_crowdsec_image_tag }}"
+pangolin_geoipupdate_image: "ghcr.io/maxmind/geoipupdate:{{ pangolin_geoipupdate_image_tag }}"
 
 # Deprecated tag fragments retained as a compatibility fallback.
 pangolin_image_tag: "0.0.0"
-gerbil_image_tag: "0.0.0"
-traefik_image_tag: "0.0.0"
-crowdsec_image_tag: "0.0.0"
-geoipupdate_image_tag: "0.0.0"
+pangolin_gerbil_image_tag: "0.0.0"
+pangolin_traefik_image_tag: "0.0.0"
+pangolin_crowdsec_image_tag: "0.0.0"
+pangolin_geoipupdate_image_tag: "0.0.0"

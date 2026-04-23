@@ -1,21 +1,19 @@
 ---
 # gitea download url
-gitea_download_url: "https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-{{ ansible_facts['system'] | lower }}-{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else ansible_facts['architecture'] }}"
+gitea_download_system: "{{ ansible_facts['system'] | lower }}"
+gitea_download_arch: "{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else ansible_facts['architecture'] }}"
+gitea_download_url: "https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-{{ gitea_download_system }}-{{ gitea_download_arch }}"
 
 # checksum file published alongside the release binary
 gitea_download_checksum_url: "{{ gitea_download_url }}.sha256"
 
 # default init scripts location
-initd_conf_dir: /etc/init.d
+gitea_initd_conf_dir: /etc/init.d
 
 # systemd unit files location
-systemd_units_dir: /lib/systemd/system
-
-# packages providing python-pip
-python_pip_packages:
-  - python-pip
+gitea_systemd_units_dir: /lib/systemd/system
 
 # extra packages needed by ansible to correctly configure the system
-ansible_support_packages:
+gitea_support_packages:
   - ca-certificates
   - git

@@ -1,11 +1,12 @@
 ---
-- hosts: postgres
+- name: PostgreSQL
+  hosts: postgres
   gather_facts: true
   become: true
   pre_tasks:
     - name: Update repositories cache
       ansible.builtin.apt:
-        update_cache: yes
+        update_cache: true
   roles:
     - role: geerlingguy.postgresql
       tags:
@@ -31,12 +32,11 @@
             mode: "0700"
         - name: Write backup script
           ansible.builtin.copy:
-            src: "{{ playbook_dir }}/../files/backups/{{ backup_script_name }}"
+            src: "{{ (playbook_dir | dirname) ~ '/files/backups/' ~ backup_script_name }}"
             dest: "{{ backup_script }}"
-        - name: Make script executable
-          ansible.builtin.file:
-            path: "{{ backup_script }}"
             mode: "0755"
+            owner: root
+            group: root
         - name: Add script to CRON
           ansible.builtin.cron:
             name: postgres backup

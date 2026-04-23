@@ -17,9 +17,9 @@ services:
       # Optional volume for storing third-party extensions
       - extensions:/var/www/FreshRSS/extensions
       # Optional file providing custom global settings (used before a FreshRSS install)
-      #- ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
+      # - ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
       # Optional file providing custom user settings (used before a new user is created)
-      #- ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
+      # - ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
       # OIDC PKCE fix: FreshRSS image doesn't expose OIDCPKCEMethod
       - ./freshrss-oidc.conf:/etc/apache2/conf-enabled/zz-oidc-pkce.conf:ro
     ports:
@@ -38,7 +38,7 @@ services:
       # Cron job to refresh feeds at specified minutes
       CRON_MIN: "2,32"
       # 'development' for additional logs; default is 'production'
-      #FRESHRSS_ENV: development
+      # FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
       # Optional parameter, remove for automatic settings, set to 0 to disable,

@@ -1,5 +1,6 @@
 ---
-- hosts: monpi
+- name: Uptime Kuma
+  hosts: monpi
   become: true
   roles:
     - role: geerlingguy.docker

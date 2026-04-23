@@ -1,5 +1,6 @@
 ---
-- hosts: apps
+- name: Apps
+  hosts: apps
   vars:
     apps_path: /srv/www/apps
     app_definitions:
@@ -33,7 +34,7 @@
       ansible.builtin.user:
         name: "{{ ansible_user }}"
         groups: docker
-        append: yes
+        append: true
       become: true
 
     - name: Deploy compose app

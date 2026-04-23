@@ -1,5 +1,5 @@
 ---
-- name: "{{ app_name }}: Validate required variables"
+- name: "Validate required variables for {{ app_name }}"
   ansible.builtin.assert:
     that:
       - app_name | default('') | length > 0
@@ -7,15 +7,16 @@
       - compose_src | default('') | length > 0
     fail_msg: "You must set app_name, app_path, and compose_src when including deploy_compose_app."
 
-- name: "{{ app_name }}: Deploy compose app"
+- name: "Deploy compose app for {{ app_name }}"
   vars:
     compose_app_user: "{{ app_user | default(ops_user | default(ansible_facts['user_id'])) }}"
     compose_app_group: "{{ app_group | default(app_user | default(ops_user | default(ansible_facts['user_id']))) }}"
     compose_app_become_fs: "{{ app_become | default(app_path is match('^/')) | bool }}"
+    compose_app_extra_src_base: "{{ extra_copy_src_base | default((playbook_dir | dirname) ~ '/files/apps/' ~ app_name) }}"
     compose_app_volume_paths: >-
       {{ volume_dirs | default([]) | map('regex_replace', '^(?!/)', app_path ~ '/') | list }}
   block:
-    - name: "{{ app_name }}: Ensure app directory and volume roots"
+    - name: "Ensure app directory and volume roots for {{ app_name }}"
       become: "{{ compose_app_become_fs }}"
       ansible.builtin.file:
         path: "{{ item }}"
@@ -25,7 +26,7 @@
         mode: "0755"
       loop: "{{ [app_path] + compose_app_volume_paths }}"
 
-    - name: "{{ app_name }}: Copy docker-compose.yaml"
+    - name: "Copy docker-compose.yaml for {{ app_name }}"
       become: "{{ compose_app_become_fs }}"
       ansible.builtin.copy:
         src: "{{ compose_src }}"
@@ -34,7 +35,7 @@
         group: "{{ compose_app_group }}"
         mode: "0644"
 
-    - name: "{{ app_name }}: Render .env from template"
+    - name: "Render .env from template for {{ app_name }}"
       become: "{{ compose_app_become_fs }}"
       ansible.builtin.template:
         src: "{{ env_template }}"
@@ -46,10 +47,10 @@
         - env_template is defined
         - env_template != omit
 
-    - name: "{{ app_name }}: Copy extra directories"
+    - name: "Copy extra directories for {{ app_name }}"
       become: "{{ compose_app_become_fs }}"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/../files/apps/{{ app_name }}/{{ item }}/"
+        src: "{{ compose_app_extra_src_base }}/{{ item }}/"
         dest: "{{ app_path }}/{{ item }}/"
         owner: "{{ compose_app_user }}"
         group: "{{ compose_app_group }}"
@@ -59,10 +60,10 @@
       when:
         - extra_copy_dirs | default([]) | length > 0
 
-    - name: "{{ app_name }}: Copy extra files"
+    - name: "Copy extra files for {{ app_name }}"
       become: "{{ compose_app_become_fs }}"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/../files/apps/{{ app_name }}/{{ item }}"
+        src: "{{ compose_app_extra_src_base }}/{{ item }}"
         dest: "{{ app_path }}/{{ item }}"
         owner: "{{ compose_app_user }}"
         group: "{{ compose_app_group }}"
@@ -71,14 +72,14 @@
       when:
         - extra_copy_files | default([]) | length > 0
 
-    - name: "{{ app_name }}: Docker compose up -d"
+    - name: "Run docker compose for {{ app_name }}"
       community.docker.docker_compose_v2:
         project_src: "{{ app_path }}"
         project_name: "{{ app_name }}"
         remove_orphans: true
       when: not ansible_check_mode
 
-    - name: "{{ app_name }}: Enforce ownership on volume roots (post-compose)"
+    - name: "Enforce ownership on volume roots for {{ app_name }}"
       become: "{{ compose_app_become_fs }}"
       ansible.builtin.file:
         path: "{{ item }}"

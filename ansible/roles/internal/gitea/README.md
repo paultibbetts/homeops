@@ -24,7 +24,7 @@ Defaults live in `defaults/main.yaml` unless noted.
 | --- | --- | --- |
 | `gitea_version` | `1.21.7` | Gitea version to download. |
 | `gitea_binary` | `/home/gitea/bin/gitea` | Path where the Gitea binary is installed. |
-| `gitea_envfile` | `/etc/default/gitea` | Environment file consumed by the service unit/init script. |
+| `gitea_env_file` | `/etc/default/gitea` | Environment file consumed by the service unit/init script. |
 | `gitea_working_directory` | `/home/gitea` | Gitea working directory and home path used by the service. |
 | `gitea_user` | `git` | Runtime user for the Gitea service. |
 | `gitea_group` | `git` | Runtime group for the Gitea service. |
@@ -34,20 +34,20 @@ Additional role variables are defined in `vars/main.yaml` and are effectively in
 | Variable | Default | Description |
 | --- | --- | --- |
 | `gitea_download_url` | derived from version, OS, and architecture | Download URL for the release binary. |
-| `initd_conf_dir` | `/etc/init.d` | Destination for the SysV init script when `systemd` is not used. |
-| `systemd_units_dir` | `/lib/systemd/system` | Destination for the systemd unit file. |
-| `ansible_support_packages` | `[ca-certificates]` | Small package list installed before downloading the binary. |
+| `gitea_initd_conf_dir` | `/etc/init.d` | Destination for the SysV init script when `systemd` is not used. |
+| `gitea_systemd_units_dir` | `/lib/systemd/system` | Destination for the systemd unit file. |
+| `gitea_support_packages` | `[ca-certificates, git]` | Small package list installed before downloading the binary. |
 
 ## What The Role Does
 
-- Installs the packages listed in `ansible_support_packages`.
+- Installs the packages listed in `gitea_support_packages`.
 - Creates the Gitea group and user.
 - Ensures the parent directory of `gitea_binary` exists and is owned by the Gitea user/group.
 - Downloads the Gitea binary from `gitea_download_url`.
-- Renders [`ansible/roles/internal/gitea/templates/gitea.env.j2`](./templates/gitea.env.j2) to `gitea_envfile`.
+- Renders [`ansible/roles/internal/gitea/templates/gitea.env.j2`](./templates/gitea.env.j2) to `gitea_env_file`.
 - Installs either:
-  - a systemd unit at `{{ systemd_units_dir }}/gitea.service`, or
-  - a SysV init script at `{{ initd_conf_dir }}/gitea`
+  - a systemd unit at `{{ gitea_systemd_units_dir }}/gitea.service`, or
+  - a SysV init script at `{{ gitea_initd_conf_dir }}/gitea`
 - Renders an update helper script to `{{ gitea_working_directory }}/bin/update.sh`.
 - Enables and starts the `gitea` service.
 
@@ -86,7 +86,7 @@ Minimal example overriding the install paths:
     gitea_version: "1.21.7"
     gitea_working_directory: /srv/gitea
     gitea_binary: /srv/gitea/bin/gitea
-    gitea_envfile: /etc/default/gitea
+    gitea_env_file: /etc/default/gitea
   roles:
     - role: gitea
 ```

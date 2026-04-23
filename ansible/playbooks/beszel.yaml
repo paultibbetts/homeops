@@ -1,5 +1,6 @@
 ---
-- hosts: monpi
+- name: Beszel Hub
+  hosts: monpi
   become: true
   roles:
     - role: community.beszel.hub
@@ -8,7 +9,8 @@
     - beszel_hub
     - hub
 
-- hosts: all,!artpi,!pangolin.hcloud
+- name: Beszel Agent
+  hosts: all,!artpi,!pangolin.hcloud
   become: true
   roles:
     - role: community.beszel.agent

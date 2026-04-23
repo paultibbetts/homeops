@@ -1,3 +1,6 @@
 ---
-- ansible.builtin.import_playbook: beszel.yaml
-- ansible.builtin.import_playbook: uptime.yaml
+- name: Beszel
+  ansible.builtin.import_playbook: beszel.yaml
+
+- name: Uptime Kuma
+  ansible.builtin.import_playbook: uptime.yaml

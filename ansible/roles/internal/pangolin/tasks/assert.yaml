@@ -18,11 +18,10 @@
       openssl rand -base64 24 | tr -d '\n'
   no_log: true
 
-- name: Validate Pangolin runtime selection
+- name: Assert pangolin_runtime is docker or podman
   ansible.builtin.assert:
     that:
       - pangolin_runtime in ["docker", "podman"]
-    fail_msg: "pangolin_runtime must be one of: docker, podman."
 
 - name: Validate Pangolin SMTP configuration
   ansible.builtin.assert:

@@ -16,8 +16,8 @@ Defaults live in `defaults/main.yaml` unless noted.
 | `common_default_shell` | `/bin/bash` | Default shell assigned to users in `common_users` when `shell` is not set per user. |
 | `common_sudo_group` | `sudo` | Group granted sudo access for users with `sudo: true`. |
 | `common_users` | `[]` | List of local users to create/manage, including SSH keys and sudo settings. |
-| `hostname_short` | unset | Optional override for the short hostname. Defaults to `inventory_hostname_short`. |
-| `hostname_fqdn` | unset | Optional override for the FQDN written to `/etc/hosts`. Defaults to `inventory_hostname`. |
+| `common_hostname_short` | unset | Optional override for the short hostname. Defaults to `inventory_hostname_short`. |
+| `common_hostname_fqdn` | unset | Optional override for the FQDN written to `/etc/hosts`. Defaults to `inventory_hostname`. |
 
 `common_users` entries can use the following keys:
 
@@ -57,7 +57,6 @@ Validates that a container runtime command exists and, by default, supports Comp
 | --- | --- | --- | --- |
 | `container_runtime_command` | no | `docker` | Runtime command to check. |
 | `container_runtime_needs_compose` | no | `true` | When true, also checks `<runtime> compose version`. |
-| `container_runtime_install_hint` | no | Docker install hint | Extra text appended to failure messages. |
 
 ### `tasks/deploy_compose_app.yaml`
 
@@ -105,8 +104,8 @@ common_users:
 If a host needs explicit hostname values instead of deriving them from inventory:
 
 ```yaml
-hostname_short: monpi
-hostname_fqdn: monpi.infra.example.internal
+common_hostname_short: monpi
+common_hostname_fqdn: monpi.infra.example.internal
 ```
 
 ## License

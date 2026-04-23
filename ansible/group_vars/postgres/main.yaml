@@ -18,42 +18,38 @@ postgresql_users:
     db: uptime_monitor
 
 postgresql_hba_entries:
-  - { type: local, database: all, user: postgres, auth_method: peer }
-  - { type: local, database: all, user: all, auth_method: peer }
-  - {
-      type: host,
-      database: all,
-      user: all,
-      address: "127.0.0.1/32",
-      auth_method: md5,
-    }
-  - {
-      type: host,
-      database: all,
-      user: all,
-      address: "::1/128",
-      auth_method: md5,
-    }
-  - {
-      type: host,
-      database: homebox,
-      user: homebox,
-      address: "{{ hostvars[groups['apps'][0]].ansible_host }}/32",
-      auth_method: md5,
-    }
-  - {
-      type: host,
-      database: mealie,
-      user: mealie,
-      address: "{{ hostvars[groups['apps'][0]].ansible_host }}/32",
-      auth_method: md5,
-    }
-  - {
-      type: host,
-      database: uptime_monitor,
-      user: uptime_monitor,
-      address: "{{ hostvars[groups['monpi'][0]].ansible_host }}/32",
-      auth_method: md5,
-    }
+  - type: local
+    database: all
+    user: postgres
+    auth_method: peer
+  - type: local
+    database: all
+    user: all
+    auth_method: peer
+  - type: host
+    database: all
+    user: all
+    address: "127.0.0.1/32"
+    auth_method: md5
+  - type: host
+    database: all
+    user: all
+    address: "::1/128"
+    auth_method: md5
+  - type: host
+    database: homebox
+    user: homebox
+    address: "{{ hostvars[groups['apps'][0]].ansible_host }}/32"
+    auth_method: md5
+  - type: host
+    database: mealie
+    user: mealie
+    address: "{{ hostvars[groups['apps'][0]].ansible_host }}/32"
+    auth_method: md5
+  - type: host
+    database: uptime_monitor
+    user: uptime_monitor
+    address: "{{ hostvars[groups['monpi'][0]].ansible_host }}/32"
+    auth_method: md5
 
 postgres_users_no_log: false

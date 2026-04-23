@@ -1,13 +1,20 @@
 ---
-# handlers file for pangolin
+- name: Apply Pangolin compose changes with Docker
+  listen: pangolin_compose_changed
+  community.docker.docker_compose_v2:
+    project_src: "{{ pangolin_project_dir }}"
+    project_name: pangolin
+    remove_orphans: true
+  when:
+    - pangolin_apply_compose | bool
+    - pangolin_runtime == "docker"
 
-- name: pangolin_compose_changed
-  ansible.builtin.command: >-
-    {{
-      (pangolin_runtime == 'podman')
-      | ternary('podman compose', 'docker compose')
-    }}
-    -f docker-compose.yaml up -d --remove-orphans
+- name: Apply Pangolin compose changes with Podman
+  listen: pangolin_compose_changed
+  ansible.builtin.command: podman compose -f docker-compose.yaml up -d --remove-orphans
   args:
     chdir: "{{ pangolin_project_dir }}"
-  when: pangolin_apply_compose | bool
+  changed_when: true
+  when:
+    - pangolin_apply_compose | bool
+    - pangolin_runtime == "podman"

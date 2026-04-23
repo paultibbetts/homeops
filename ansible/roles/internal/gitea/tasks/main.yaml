@@ -3,7 +3,7 @@
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
-  loop: "{{ ansible_support_packages }}"
+  loop: "{{ gitea_support_packages }}"
 
 - name: Create Gitea group
   ansible.builtin.group:
@@ -38,20 +38,26 @@
 - name: Render Gitea environment file
   ansible.builtin.template:
     src: gitea.env.j2
-    dest: "{{ gitea_envfile }}"
+    dest: "{{ gitea_env_file }}"
+    owner: root
+    group: root
+    mode: "0640"
   notify: Restart Gitea
 
 - name: Render Gitea systemd unit
   ansible.builtin.template:
     src: gitea.unit.j2
-    dest: "{{ systemd_units_dir }}/gitea.service"
+    dest: "{{ gitea_systemd_units_dir }}/gitea.service"
+    owner: root
+    group: root
+    mode: "0644"
   when: ansible_facts['service_mgr'] == "systemd"
   notify: Restart Gitea
 
 - name: Render Gitea init script
   ansible.builtin.template:
     src: gitea.init.j2
-    dest: "{{ initd_conf_dir }}/gitea"
+    dest: "{{ gitea_initd_conf_dir }}/gitea"
     mode: "0755"
   when: ansible_facts['service_mgr'] != "systemd"
   notify: Restart Gitea

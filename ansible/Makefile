@@ -1,4 +1,4 @@
-.PHONY: setup deps deps-upgrade site upgrade apps dns ingress
+.PHONY: setup deps deps-upgrade lint site upgrade apps dns ingress
 
 GALAXY_FLAGS ?=
 PLAYBOOK_FLAGS ?=
@@ -15,6 +15,9 @@ deps: setup
 deps-upgrade: setup
 	uv run ansible-galaxy role install -r requirements.yaml -p roles/galaxy --force $(GALAXY_FLAGS)
 	uv run ansible-galaxy collection install -r requirements.yaml --force $(GALAXY_FLAGS)
+
+lint: setup
+	uv run ansible-lint
 
 # Global
 

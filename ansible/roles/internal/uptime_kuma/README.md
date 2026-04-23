@@ -19,9 +19,8 @@ Defaults live in `defaults/main.yaml` unless noted.
 | Variable                               | Default                                       | Description                                                              |
 | -------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------ |
 | `uptime_kuma_app_name`                 | `uptime-kuma`                                 | Compose project name and logical app name.                               |
-| `uptime_kuma_app_path`                 | `{{ apps_path }}/{{ uptime_kuma_app_name }}`  | Directory where the compose file and persistent data are stored.         |
+| `uptime_kuma_app_path`                 | `/srv/apps/{{ uptime_kuma_app_name }}`        | Directory where the compose file and persistent data are stored.         |
 | `uptime_kuma_enforce_volume_ownership` | `true`                                        | Recursively re-owns the persistent volume directory after Compose runs.  |
-| `apps_path` (`vars/main.yaml`)          | `/srv/apps`                                   | Shared base path used by this role to build `uptime_kuma_app_path`.      |
 
 ## What The Role Deploys
 
@@ -56,7 +55,7 @@ Override the app root if this host stores Compose apps somewhere else:
 - hosts: monpi
   become: true
   vars:
-    apps_path: /srv/www/apps
+    uptime_kuma_app_path: /srv/www/apps/uptime-kuma
   roles:
     - role: geerlingguy.docker
     - role: uptime_kuma

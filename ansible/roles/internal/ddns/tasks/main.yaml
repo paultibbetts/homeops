@@ -8,9 +8,6 @@
           - duckdns_domain | trim | length > 0
           - duckdns_token is defined
           - duckdns_token | trim | length > 0
-        fail_msg: >-
-          The ddns role requires non-empty duckdns_domain and duckdns_token
-          variables.
 
     - name: Install requirements
       ansible.builtin.apt:
@@ -21,11 +18,11 @@
     - name: Template script
       ansible.builtin.template:
         src: duck.sh.j2
-        dest: "{{ ddns_script }}"
+        dest: "{{ ddns_script_path }}"
         mode: "0700"
 
     - name: Add script to CRON
       ansible.builtin.cron:
         name: ddns
         minute: "5"
-        job: "{{ ddns_script }}"
+        job: "{{ ddns_script_path }}"
