@@ -130,7 +130,7 @@ Initial Pangolin application setup (creating the first admin user/org/site, conf
 
 ## License
 
-MIT (see role metadata).
+MIT
 
 ## Author Information
 
