@@ -18,4 +18,4 @@ Independent monitoring on a Raspberry Pi.
 
 (24.04 requires 4GB RAM and this machine only has 2GB)
 
-TODO: either replace the Pi with one that has more RAM to handle 4K output or install a server OS with no desktop environment.
+At some point I should either replace the Pi with one that has more RAM for 4K output or switch this machine to a server OS with no desktop environment.
