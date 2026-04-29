@@ -1,5 +1,5 @@
 # renovate: datasource=github-releases depName=fosrl/newt
-newt_version: 1.11.0
+newt_version: 1.12.2
 
 # renovate: datasource=docker depName=docker.io/fosrl/pangolin
 pangolin_image: "docker.io/fosrl/pangolin:1.17.1@sha256:c8002c5acf73a6e6e85f61be38036b4eb35afeb99c4d52501c737f0257d4c673"
