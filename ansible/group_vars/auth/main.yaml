@@ -3,4 +3,4 @@ kanidm_domain: "auth.cloud.paultibbetts.uk"
 kanidm_origin: "https://{{ kanidm_domain }}"
 
 # renovate: datasource=docker depName=kanidm/server versioning=docker
-kanidm_image: "kanidm/server:1.9.2"
+kanidm_image: "kanidm/server:1.9.3"
