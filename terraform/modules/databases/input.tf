@@ -1,5 +1,5 @@
 variable "ssh_keys" {
-  description = "The SSH keys to add"
+  description = "Authorized SSH public keys for the VMs"
   type        = string
 }
 
@@ -9,69 +9,69 @@ variable "internal_dns_zone" {
 }
 
 variable "network_gateway" {
-  description = "The network gateway"
+  description = "IPv4 gateway for the VMs"
   type        = string
 }
 
 variable "proxmox_storage" {
-  description = "The storage on the host to use"
+  description = "Proxmox storage used for the VM disks"
   type        = string
 }
 
 variable "proxmox_host" {
-  description = "The host to use"
+  description = "Proxmox node that hosts the VMs"
   type        = string
 }
 
 variable "cloud_init_template_name" {
-  description = "The cloud-init template name"
+  description = "Cloud-init template cloned for the VMs"
   type        = string
 }
 
 variable "mysql_disk_size" {
-  description = "How much disk size for MySQL"
+  description = "Disk size for the MySQL VM"
   type        = string
   default     = "10G"
 }
 
 variable "mysql_cores" {
-  description = "How many cores for MySQL"
+  description = "vCPU cores for the MySQL VM"
   type        = number
   default     = 1
 }
 
 variable "mysql_memory" {
-  description = "The amount of RAM for MySQL"
+  description = "Memory in MB for the MySQL VM"
   type        = number
   default     = 4096
 }
 
 variable "mysql_ip" {
-  description = "The starting point for MySQL IPs"
+  description = "IPv4 address for the MySQL VM"
   type        = string
   default     = "198.51.100.61"
 }
 
 variable "postgres_disk_size" {
-  description = "How much disk size for Postgres"
+  description = "Disk size for the Postgres VM"
   type        = string
   default     = "10G"
 }
 
 variable "postgres_cores" {
-  description = "How many cores for Postgres"
+  description = "vCPU cores for the Postgres VM"
   type        = number
   default     = 1
 }
 
 variable "postgres_memory" {
-  description = "The amount of RAM for Postgres"
+  description = "Memory in MB for the Postgres VM"
   type        = number
   default     = 4096
 }
 
 variable "postgres_ip" {
-  description = "The starting point for Postgres IPs"
+  description = "IPv4 address for the Postgres VM"
   type        = string
   default     = "203.0.113.62"
 }

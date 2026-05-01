@@ -1,5 +1,5 @@
 variable "ssh_keys" {
-  description = "The SSH keys to add"
+  description = "Authorized SSH public keys for the on-prem VM"
   type        = string
 }
 
@@ -9,44 +9,44 @@ variable "internal_dns_zone" {
 }
 
 variable "ssh_key" {
-  description = "The SSH key of the admin user"
+  description = "SSH public key injected into the edge host"
   type        = string
 }
 
 variable "network_gateway" {
-  description = "The network gateway"
+  description = "IPv4 gateway for the on-prem VM"
   type        = string
 }
 
 variable "proxmox_storage" {
-  description = "The storage on the host to use"
+  description = "Proxmox storage used for the on-prem VM disk"
   type        = string
 }
 
 variable "proxmox_host" {
-  description = "The host to use"
+  description = "Proxmox node that hosts the on-prem VM"
   type        = string
 }
 
 variable "cloud_init_template_name" {
-  description = "The cloud-init template name"
+  description = "Cloud-init template cloned for the on-prem VM"
   type        = string
 }
 
 variable "disk_size" {
-  description = "How much disk size"
+  description = "Disk size for the on-prem tunnel VM"
   type        = string
   default     = "10G"
 }
 
 variable "cores" {
-  description = "How many cores"
+  description = "vCPU cores for the on-prem tunnel VM"
   type        = number
   default     = 1
 }
 
 variable "memory" {
-  description = "The amount of RAM"
+  description = "Memory in MB for the on-prem tunnel VM"
   type        = number
   default     = 2048
 }
@@ -59,8 +59,9 @@ variable "cloudflare_api_token" {
 }
 
 variable "zone_name" {
-  type    = string
-  default = "example.com"
+  description = "Public DNS zone managed in Cloudflare"
+  type        = string
+  default     = "example.com"
 }
 
 variable "home_ip" {
@@ -78,5 +79,6 @@ variable "nameserver" {
 # subdomains
 
 variable "subdomains" {
-  type = list(string)
+  description = "Public subdomains that should point at the edge host"
+  type        = list(string)
 }

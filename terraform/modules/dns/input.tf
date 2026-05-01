@@ -1,5 +1,5 @@
 variable "ssh_keys" {
-  description = "The SSH keys to add"
+  description = "Authorized SSH public keys for the VM"
   type        = string
 }
 
@@ -9,51 +9,51 @@ variable "internal_dns_zone" {
 }
 
 variable "network_gateway" {
-  description = "The network gateway"
+  description = "IPv4 gateway for the VM"
   type        = string
 }
 
 variable "proxmox_storage" {
-  description = "The storage on the host to use"
+  description = "Proxmox storage used for the VM disk"
   type        = string
 }
 
 variable "proxmox_host" {
-  description = "The host to use"
+  description = "Proxmox node that hosts the VM"
   type        = string
 }
 
 variable "cloud_init_template_name" {
-  description = "The cloud-init template name"
+  description = "Cloud-init template cloned for the VM"
   type        = string
 }
 
 variable "pihole_disk_size" {
-  description = "How much disk size for pihole"
+  description = "Disk size for the Pi-hole VM"
   type        = string
   default     = "10G"
 }
 
 variable "pihole_cores" {
-  description = "How many cores for pihole"
+  description = "vCPU cores for the Pi-hole VM"
   type        = number
   default     = 1
 }
 
 variable "pihole_memory" {
-  description = "The amount of RAM for pihole"
+  description = "Memory in MB for the Pi-hole VM"
   type        = number
   default     = 4096
 }
 
 variable "pihole_ip" {
-  description = "The starting point for pihole IPs"
+  description = "IPv4 address for the Pi-hole VM"
   type        = string
   default     = "192.0.2.53"
 }
 
 variable "bootstrap" {
-  description = "Is this the first run?"
+  description = "Skip creating the Pi-hole DNS record during initial bootstrap"
   type        = bool
   default     = false
 }

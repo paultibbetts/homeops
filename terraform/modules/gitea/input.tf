@@ -1,5 +1,5 @@
 variable "ssh_keys" {
-  description = "The SSH keys to add"
+  description = "Authorized SSH public keys for the VM"
   type        = string
 }
 
@@ -9,45 +9,45 @@ variable "internal_dns_zone" {
 }
 
 variable "network_gateway" {
-  description = "The network gateway"
+  description = "IPv4 gateway for the VM"
   type        = string
 }
 
 variable "proxmox_storage" {
-  description = "The storage on the host to use"
+  description = "Proxmox storage used for the VM disk"
   type        = string
 }
 
 variable "proxmox_host" {
-  description = "The host to use"
+  description = "Proxmox node that hosts the VM"
   type        = string
 }
 
 variable "cloud_init_template_name" {
-  description = "The cloud-init template name"
+  description = "Cloud-init template cloned for the VM"
   type        = string
 }
 
 variable "disk_size" {
-  description = "How much disk size for Gitea"
+  description = "Disk size for the Gitea VM"
   type        = string
   default     = "100G"
 }
 
 variable "cores" {
-  description = "How many cores for Gitea"
+  description = "vCPU cores for the Gitea VM"
   type        = number
   default     = 1
 }
 
 variable "memory" {
-  description = "The amount of RAM for Gitea"
+  description = "Memory in MB for the Gitea VM"
   type        = number
   default     = 2048
 }
 
 variable "ip" {
-  description = "The IP for Gitea"
+  description = "IPv4 address for the Gitea VM"
   type        = string
   default     = "192.0.2.44"
 }

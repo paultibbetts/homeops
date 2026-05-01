@@ -8,8 +8,8 @@ Managed by [Terraform](https://www.terraform.io/)
 - Terraform
 - Proxmox v9
 - cloud-init template
-- `terraform.tfvars` filled in
-- `pass` setup with required passwords
+- `terraform.tfvars` filled in for non-secret values
+- `pass` setup with the required passwords and backend credentials
 
 ## Usage
 
@@ -18,6 +18,9 @@ source secrets.sh
 terraform init
 terraform apply
 ```
+
+`secrets.sh` exports the `TF_VAR_*` values used by the providers and the S3
+backend environment variables used for remote state.
 
 ## Explanations of requirements
 

@@ -1,5 +1,5 @@
 variable "ssh_keys" {
-  description = "The SSH keys to add"
+  description = "Authorized SSH public keys for the VM"
   type        = string
 }
 
@@ -9,34 +9,34 @@ variable "internal_dns_zone" {
 }
 
 variable "proxmox_storage" {
-  description = "The storage on the host to use"
+  description = "Proxmox storage used for the VM disk"
   type        = string
 }
 
 variable "proxmox_host" {
-  description = "The host to use"
+  description = "Proxmox node that hosts the VM"
   type        = string
 }
 
 variable "cloud_init_template_name" {
-  description = "The cloud-init template name"
+  description = "Cloud-init template cloned for the VM"
   type        = string
 }
 
 variable "disk_size" {
-  description = "How much disk size"
+  description = "Disk size for the VPN VM"
   type        = string
   default     = "10G"
 }
 
 variable "cores" {
-  description = "How many cores"
+  description = "vCPU cores for the VPN VM"
   type        = number
   default     = 1
 }
 
 variable "memory" {
-  description = "The amount of RAM"
+  description = "Memory in MB for the VPN VM"
   type        = number
   default     = 2048
 }

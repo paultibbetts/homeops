@@ -1,5 +1,5 @@
 variable "ssh_keys" {
-  description = "SSH keys to add"
+  description = "Authorized SSH public keys for the container"
   type        = string
 }
 
@@ -9,46 +9,46 @@ variable "internal_dns_zone" {
 }
 
 variable "proxmox_storage" {
-  description = "Storage on the host to use (e.g., local-lvm)"
+  description = "Proxmox storage used for the container rootfs"
   type        = string
 }
 
 variable "proxmox_host" {
-  description = "Proxmox node name (e.g., pve)"
+  description = "Proxmox node that hosts the container"
   type        = string
 }
 
 variable "lxc_template" {
-  description = "LXC template (only used for fresh creates)"
+  description = "LXC template used for fresh creates"
   type        = string
   default     = null
 }
 
 variable "memory" {
-  description = "RAM (MB)"
+  description = "Memory in MB for the container"
   type        = number
   default     = 8192
 }
 
 variable "network_gateway" {
-  description = "IPv4 gateway"
+  description = "IPv4 gateway for the container"
   type        = string
 }
 
 variable "ip" {
-  description = "IPv4 address (no CIDR)"
+  description = "IPv4 address for the container"
   type        = string
   default     = "203.0.113.17"
 }
 
 variable "cores" {
-  description = "vCPU cores"
+  description = "vCPU cores for the container"
   type        = number
   default     = 2
 }
 
 variable "unprivileged" {
-  description = "Run container unprivileged"
+  description = "Run the container unprivileged"
   type        = bool
   default     = true
 }
@@ -61,7 +61,7 @@ variable "nas_mp_size" {
 }
 
 variable "pihole_ip" {
-  description = "The IP of Pi-hole, to use as the nameserver"
-  type = string
-  default = "192.0.2.53"
+  description = "IPv4 address of Pi-hole, used as the nameserver"
+  type        = string
+  default     = "192.0.2.53"
 }

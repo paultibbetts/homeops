@@ -94,13 +94,13 @@ module "jellyfin" {
   source = "./modules/jellyfin"
 
   internal_dns_zone = var.internal_dns_zone
-  ssh_keys        = var.ssh_keys
-  network_gateway = var.network_gateway
-  proxmox_storage = var.proxmox_storage
-  proxmox_host    = var.proxmox_host
-  lxc_template    = var.lxc_template # optional; not used post-import
-  ip              = var.jellyfin_ip
-  pihole_ip       = var.dns_ip
+  ssh_keys          = var.ssh_keys
+  network_gateway   = var.network_gateway
+  proxmox_storage   = var.proxmox_storage
+  proxmox_host      = var.proxmox_host
+  lxc_template      = var.lxc_template
+  ip                = var.jellyfin_ip
+  pihole_ip         = var.dns_ip
 
   # Jellyfin specifics
   memory       = 8192
@@ -122,7 +122,7 @@ module "tunnel" {
   source = "./modules/tunnel"
 
   internal_dns_zone        = var.internal_dns_zone
-  ssh_keys                 = var.ssh_keys # deprecated
+  ssh_keys                 = var.ssh_keys
   ssh_key                  = var.ssh_key
   proxmox_storage          = var.proxmox_storage
   proxmox_host             = var.proxmox_host
@@ -135,7 +135,6 @@ module "tunnel" {
   zone_name            = var.cloudflare_zone_name
   subdomains           = var.public_zone_tunnel_subdomains
 }
-
 
 module "apps" {
   source = "./modules/apps"

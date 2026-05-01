@@ -9,7 +9,7 @@ variable "hetzner_api_token" {
 }
 
 variable "ssh_key" {
-  description = "The SSH key of the ops user"
+  description = "SSH public key injected into the edge host"
   type        = string
   default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC5cSqQNVmTIWz9901r8HB+DiwmnFYRWYXChyqigkzAA"
 }
@@ -23,7 +23,7 @@ variable "proxmox_api_url" {
 }
 
 variable "proxmox_tls_insecure" {
-  description = "If the API is insecure"
+  description = "Skip TLS verification for the Proxmox API"
   type        = bool
 }
 
@@ -55,7 +55,7 @@ variable "internal_dns_zone" {
 }
 
 variable "ssh_keys" {
-  description = "The SSH keys to add"
+  description = "Authorized SSH public keys for managed hosts"
   type        = string
   default     = <<-EOT
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLiEeOqR0KLdVZ64p94nk2fSno1jyminStrv2OPVcd2 ops@example.com
@@ -64,7 +64,7 @@ variable "ssh_keys" {
 }
 
 variable "network_gateway" {
-  description = "The network gateway"
+  description = "IPv4 gateway for the Proxmox LAN"
   type        = string
   default     = "198.51.100.1"
   validation {
@@ -142,13 +142,13 @@ variable "tunnel_home_ip" {
 ## Proxmox
 
 variable "proxmox_host" {
-  description = "The proxmox host to apply to"
+  description = "Proxmox node that hosts the workloads"
   type        = string
   default     = "host1"
 }
 
 variable "proxmox_storage" {
-  description = "The storage on the host to use"
+  description = "Proxmox storage used for VM and LXC disks"
   type        = string
   default     = "vms"
 }
@@ -178,7 +178,8 @@ variable "pihole_admin_password" {
 }
 
 variable "public_zone_tunnel_subdomains" {
-  type = list(string)
+  description = "Public subdomains that should point at the tunnel edge"
+  type        = list(string)
 }
 
 variable "cloudflare_zone_name" {

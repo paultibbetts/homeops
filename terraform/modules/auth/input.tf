@@ -1,5 +1,5 @@
 variable "ssh_keys" {
-  description = "The SSH keys to add"
+  description = "Authorized SSH public keys for the VM"
   type        = string
 }
 
@@ -9,45 +9,45 @@ variable "internal_dns_zone" {
 }
 
 variable "network_gateway" {
-  description = "The network gateway"
+  description = "IPv4 gateway for the VM"
   type        = string
 }
 
 variable "proxmox_storage" {
-  description = "The storage on the host to use"
+  description = "Proxmox storage used for the VM disk"
   type        = string
 }
 
 variable "proxmox_host" {
-  description = "The host to use"
+  description = "Proxmox node that hosts the VM"
   type        = string
 }
 
 variable "cloud_init_template_name" {
-  description = "The cloud-init template"
+  description = "Cloud-init template cloned for the VM"
   type        = string
 }
 
 variable "disk_size" {
-  description = "How much disk size for auth"
+  description = "Disk size for the auth VM"
   type        = string
   default     = "100G"
 }
 
 variable "cores" {
-  description = "How many cores for apps"
+  description = "vCPU cores for the auth VM"
   type        = number
   default     = 1
 }
+
 variable "memory" {
-  description = "The amount of RAM"
+  description = "Memory in MB for the auth VM"
   type        = number
   default     = 2048
 }
 
-
 variable "ip" {
-  description = "The IP"
+  description = "IPv4 address for the auth VM"
   type        = string
   default     = "203.0.113.42"
 }
