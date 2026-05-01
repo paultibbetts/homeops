@@ -4,7 +4,6 @@ services:
     container_name: homepage
     network_mode: host # uses port 3000, required for DNS
     volumes:
-      - ./config:/app/config # Make sure your local config directory exists
-      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+      - ./config:/app/config
     env_file: .env
     restart: always
