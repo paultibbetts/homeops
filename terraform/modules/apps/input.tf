@@ -37,12 +37,12 @@ variable "disk_size" {
 variable "cores" {
   description = "How many cores for apps"
   type        = number
-  default     = 1
+  default     = 2
 }
 variable "memory" {
   description = "The amount of RAM"
   type        = number
-  default     = 2048
+  default     = 4096
 }
 
 
