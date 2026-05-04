@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# This script stages an application-level export
+# so that Proxmox Backup Server can capture it.
+# PBS manages retention and syncs to a second PBS.
 
 set -e
 
