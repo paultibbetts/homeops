@@ -59,11 +59,10 @@ resource "proxmox_vm_qemu" "newt" {
 }
 
 resource "hcloud_primary_ip" "edge" {
-  name          = "pangolin"
-  location      = "nbg1"
-  type          = "ipv4"
-  assignee_type = "server"
-  auto_delete   = true
+  name        = "pangolin"
+  location    = "nbg1"
+  type        = "ipv4"
+  auto_delete = true
 }
 
 locals {
