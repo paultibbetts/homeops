@@ -43,9 +43,6 @@ It was decoupled from my original homelab repo, which is now a Kubernetes setup 
 
 ## Ideas for the future
 
-- [ ] test my backups
-- [ ] test disaster recovery processes
-- [ ] send backups to an external location (when my data starts being important enough)
 - [ ] create a documentation site
 - [ ] simplify the Terraform code
 - [ ] replace Terraform with [OpenTofu](https://opentofu.org/)
@@ -60,6 +57,7 @@ It was decoupled from my original homelab repo, which is now a Kubernetes setup 
 - [ ] add new apps and services to this repo
 - [ ] decide if I should enhance/replace this setup with Kubernetes
 - [ ] consider a [mesh VPN](https://tailscale.com/learn/understanding-mesh-vpns) like [Tailscale](https://tailscale.com/) or [NetBird](https://netbird.io/)
+- [ ] add an offsite backup target when budget and needs collide
 - [ ] test my backups again
 
 ## Storage
