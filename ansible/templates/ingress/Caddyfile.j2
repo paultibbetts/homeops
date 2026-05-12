@@ -128,7 +128,12 @@
 }
 
 {{ ingress_services.mealie.domain }} {
-	reverse_proxy {{ ingress_services.mealie.upstream }}
+	reverse_proxy {{ ingress_services.mealie.upstream }} {
+		header_up Host {host}
+		header_up X-Forwarded-Host {host}
+		header_up X-Forwarded-Proto {scheme}
+		header_up X-Forwarded-Port 443
+	}
 }
 
 {{ ingress_services.mealie_enricher.domain }} {
