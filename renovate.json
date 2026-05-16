@@ -20,6 +20,21 @@
       "description": "ignore mealie-enricher for now",
       "matchFileNames": ["ansible/group_vars/apps/mealie-enricher.yaml"],
       "enabled": false
+    },
+    {
+      "description": "Group Pangolin stack updates",
+      "matchFileNames": ["ansible/group_vars/tunnel/main.yaml"],
+      "matchDepNames": [
+        "docker.io/fosrl/pangolin",
+        "docker.io/fosrl/gerbil",
+        "docker.io/traefik",
+        "docker.io/crowdsecurity/crowdsec",
+        "ghcr.io/maxmind/geoipupdate",
+        "fosrl/badger",
+        "maxlerebourg/crowdsec-bouncer-traefik-plugin"
+      ],
+      "groupName": "Pangolin stack",
+      "groupSlug": "pangolin-stack"
     }
   ],
   "customManagers": [
