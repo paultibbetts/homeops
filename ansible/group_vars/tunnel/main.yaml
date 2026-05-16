@@ -9,6 +9,7 @@ pangolin_gerbil_image: "docker.io/fosrl/gerbil:1.4.0@sha256:887355e66deac61df958
 pangolin_traefik_image: "docker.io/traefik:v3.7.0"
 # renovate: datasource=docker depName=docker.io/crowdsecurity/crowdsec
 pangolin_crowdsec_image: "docker.io/crowdsecurity/crowdsec:v1.7.7@sha256:6ca53ad26196ca59ddd4fa692a586b73d8fcde085046163b9ca2f04887dca563"
+# renovate: datasource=docker depName=ghcr.io/maxmind/geoipupdate
 pangolin_geoipupdate_image: "ghcr.io/maxmind/geoipupdate:v7.1.1@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2"
 
 # renovate: datasource=github-releases depName=fosrl/badger
