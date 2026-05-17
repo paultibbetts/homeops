@@ -2,13 +2,13 @@
 newt_version: 1.12.5
 
 # renovate: datasource=docker depName=docker.io/fosrl/pangolin
-pangolin_image: "docker.io/fosrl/pangolin:1.18.2@sha256:f28fc9d293c1fdcc8d449cc9f15ec50326bb00ea3895325d160316b92a89aa6f"
+pangolin_image: "docker.io/fosrl/pangolin:1.18.4@sha256:4b99f893935f1068c8625156cf52b6b3ea3e61cc3e54001f5aa64c5cd91f95e2"
 # renovate: datasource=docker depName=docker.io/fosrl/gerbil
 pangolin_gerbil_image: "docker.io/fosrl/gerbil:1.4.0@sha256:887355e66deac61df9583d9df23e630897f785a8e20bc66081c66e40687cc713"
 # renovate: datasource=docker depName=docker.io/traefik
-pangolin_traefik_image: "docker.io/traefik:v3.7.0"
+pangolin_traefik_image: "docker.io/traefik:v3.7.1"
 # renovate: datasource=docker depName=docker.io/crowdsecurity/crowdsec
-pangolin_crowdsec_image: "docker.io/crowdsecurity/crowdsec:v1.7.7@sha256:6ca53ad26196ca59ddd4fa692a586b73d8fcde085046163b9ca2f04887dca563"
+pangolin_crowdsec_image: "docker.io/crowdsecurity/crowdsec:v1.7.8@sha256:2f527c9bb8b367120eb08b82890aa912ce96bfa1ada93dda0721700e4b4e0dde"
 # renovate: datasource=docker depName=ghcr.io/maxmind/geoipupdate
 pangolin_geoipupdate_image: "ghcr.io/maxmind/geoipupdate:v7.1.1@sha256:faecdca22579730ab0b7dea5aa9af350bb3c93cb9d39845c173639ead30346d2"
 
