@@ -35,6 +35,12 @@
     group: "{{ gitea_group }}"
     mode: "0755"
 
+- name: Apply custom Gitea label sets
+  ansible.builtin.import_tasks: custom_labels.yaml
+  when: gitea_custom_label_sets | length > 0
+  tags:
+    - custom_labels
+
 - name: Render Gitea environment file
   ansible.builtin.template:
     src: gitea.env.j2

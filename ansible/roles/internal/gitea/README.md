@@ -28,6 +28,9 @@ Defaults live in `defaults/main.yaml` unless noted.
 | `gitea_working_directory` | `/home/gitea` | Gitea working directory and home path used by the service. |
 | `gitea_user` | `git` | Runtime user for the Gitea service. |
 | `gitea_group` | `git` | Runtime group for the Gitea service. |
+| `gitea_custom_path` | `{{ gitea_binary \| dirname }}/custom` | Gitea custom path used by optional role customizations. |
+| `gitea_custom_label_set_src_dir` | `{{ playbook_dir }}/../files/gitea/labels` | Controller-side directory containing custom label-set files. |
+| `gitea_custom_label_sets` | `[]` | Label-set filenames to install from `gitea_custom_label_set_src_dir`. |
 
 Additional role variables are defined in `vars/main.yaml` and are effectively internal implementation details:
 
@@ -51,6 +54,12 @@ Additional role variables are defined in `vars/main.yaml` and are effectively in
 - Renders an update helper script to `{{ gitea_working_directory }}/bin/update.sh`.
 - Enables and starts the `gitea` service.
 
+## Optional Customizations
+
+When `gitea_custom_label_sets` is non-empty, the role runs a separate `custom_labels` task file that installs the named files from `gitea_custom_label_set_src_dir` into `{{ gitea_custom_path }}/options/label/`.
+
+Using a new filename adds a new label set. Installing `Default.yaml` overrides Gitea's built-in `Default` label template.
+
 ## What The Role Does Not Do
 
 - It does not install Git.
@@ -58,6 +67,7 @@ Additional role variables are defined in `vars/main.yaml` and are effectively in
 - It does not create Gitea's full upstream-recommended directory layout under `/var/lib/gitea` and `/etc/gitea`.
 - It does not prepare the database or manage external database users.
 - It does not configure a reverse proxy, TLS, SSH exposure, backups, or initial application setup.
+- It does not install custom label sets unless `gitea_custom_label_sets` is explicitly populated.
 
 That means first-run application configuration is expected to happen outside this role, either by letting Gitea's installer write the config on first setup or by supplying configuration manually on the host.
 

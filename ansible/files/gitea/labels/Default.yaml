@@ -1,0 +1,25 @@
+labels:
+  - name: "bug"
+    color: ee0701
+    description: Something is not working
+  - name: "duplicate"
+    color: cccccc
+    description: This issue or pull request already exists
+  - name: "enhancement"
+    color: 84b6eb
+    description: New feature
+  - name: "help wanted"
+    color: 128a0c
+    description: Need some help
+  - name: "invalid"
+    color: e6e6e6
+    description: Something is wrong
+  - name: "question"
+    color: cc317c
+    description: More information is needed
+  - name: "wontfix"
+    color: ffffff
+    description: This won't be fixed
+  - name: "dependencies"
+    color: fad8c7
+    description: Dependency updates

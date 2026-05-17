@@ -1,0 +1,18 @@
+---
+- name: Ensure custom Gitea label directory exists
+  ansible.builtin.file:
+    path: "{{ gitea_custom_path }}/options/label"
+    state: directory
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: "0755"
+
+- name: Install custom Gitea label sets
+  ansible.builtin.copy:
+    src: "{{ gitea_custom_label_set_src_dir }}/{{ item }}"
+    dest: "{{ gitea_custom_path }}/options/label/{{ item }}"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: "0644"
+  loop: "{{ gitea_custom_label_sets }}"
+  notify: Restart Gitea

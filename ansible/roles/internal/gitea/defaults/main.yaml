@@ -14,3 +14,8 @@ gitea_working_directory: /home/gitea
 # Runtime user and group for the gitea service
 gitea_user: git
 gitea_group: git
+
+# Optional repo-specific customizations.
+gitea_custom_path: "{{ gitea_binary | dirname }}/custom"
+gitea_custom_label_set_src_dir: "{{ playbook_dir }}/../files/gitea/labels"
+gitea_custom_label_sets: []
