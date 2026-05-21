@@ -1,0 +1,10 @@
+---
+act_runner_labels:
+  - "ubuntu-latest:docker://gitea/runner-images:ubuntu-latest"
+  - "ubuntu-24.04:docker://gitea/runner-images:ubuntu-24.04"
+
+act_runner_instance_url: "https://gitea.cloud.paultibbetts.uk"
+act_runner_name: "gitea-runner"
+act_runner_cache_host: "gitea-runner.infra.home.arpa"
+
+act_runner_registration_token: "{{ vault_act_runner_registration_token }}"

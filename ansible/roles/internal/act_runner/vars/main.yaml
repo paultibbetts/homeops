@@ -1,0 +1,6 @@
+---
+act_runner_download_system: "{{ ansible_facts.system | lower }}"
+act_runner_download_arch: "{{ 'amd64' if ansible_facts.architecture == 'x86_64' else ansible_facts.architecture }}"
+act_runner_download_filename: "act_runner-{{ act_runner_version }}-{{ act_runner_download_system }}-{{ act_runner_download_arch }}"
+act_runner_download_url: "https://dl.gitea.com/act_runner/{{ act_runner_version }}/{{ act_runner_download_filename }}"
+act_runner_download_checksum_url: "{{ act_runner_download_url }}.sha256"

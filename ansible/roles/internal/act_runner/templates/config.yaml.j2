@@ -1,0 +1,43 @@
+# {{ ansible_managed }}
+
+log:
+  level: "{{ act_runner_log_level }}"
+
+runner:
+  file: "{{ act_runner_runner_file }}"
+  capacity: {{ act_runner_capacity }}
+  envs: {}
+  env_file: ""
+  timeout: "{{ act_runner_job_timeout }}"
+  insecure: {{ act_runner_instance_insecure | bool | ternary('true', 'false') }}
+  fetch_timeout: "{{ act_runner_fetch_timeout }}"
+  fetch_interval: "{{ act_runner_fetch_interval }}"
+  labels:
+{% for label in act_runner_labels %}
+    - "{{ label }}"
+{% endfor %}
+
+cache:
+  enabled: {{ act_runner_cache_enabled | bool | ternary('true', 'false') }}
+  dir: "{{ act_runner_cache_dir }}"
+  host: "{{ act_runner_cache_host }}"
+  port: {{ act_runner_cache_port }}
+  external_server: "{{ act_runner_cache_external_server }}"
+
+container:
+  network: "{{ act_runner_container_network }}"
+  privileged: {{ act_runner_container_privileged | bool | ternary('true', 'false') }}
+  options: "{{ act_runner_container_options }}"
+  workdir_parent: "{{ act_runner_container_workdir_parent }}"
+{% if act_runner_container_valid_volumes | length > 0 %}
+  valid_volumes:
+{% for volume in act_runner_container_valid_volumes %}
+    - "{{ volume }}"
+{% endfor %}
+{% else %}
+  valid_volumes: []
+{% endif %}
+  docker_host: "{{ act_runner_container_docker_host }}"
+
+host:
+  workdir_parent: "{{ act_runner_host_workdir_parent }}"

@@ -9,7 +9,8 @@
     backup_script_directory: /usr/local/bin/
     backup_script_name: backup-gitea.sh
     backup_script: "{{ backup_script_directory }}{{ backup_script_name }}"
-    healthcheck: "{{ git_backup_healthcheck | default('curl -fsS -m 10 --retry 5 -o /dev/null https://healthchecks.example.com/ping/example-git') }}"
+    healthcheck: "{{ git_backup_healthcheck | default('curl -fsS -m 10 --retry 5 -o
+      /dev/null https://healthchecks.example.com/ping/example-git') }}"
   tasks:
     - name: Backup
       tags:
@@ -35,3 +36,11 @@
             hour: "3"
             minute: "0"
             job: "{{ backup_script }} && {{ healthcheck }}"
+
+- name: Gitea Act Runner
+  hosts: gitea_runner
+  gather_facts: true
+  become: true
+  roles:
+    - role: geerlingguy.docker
+    - role: act_runner
