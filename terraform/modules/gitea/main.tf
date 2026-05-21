@@ -74,8 +74,68 @@ resource "proxmox_vm_qemu" "gitea" {
   sshkeys = var.ssh_keys
 }
 
+resource "proxmox_vm_qemu" "gitea_runner" {
+  name               = "gitea-runner"
+  tags               = "tf"
+  target_node        = var.proxmox_host
+  clone              = var.cloud_init_template_name
+  full_clone         = true
+  vm_state           = "running"
+  start_at_node_boot = true
+  agent              = 1
+  os_type            = "cloud-init"
+  memory             = var.runner_memory
+  scsihw             = "virtio-scsi-pci"
+  bootdisk           = "scsi0"
+  vmid               = 306
+
+  cpu {
+    cores = var.runner_cores
+  }
+
+  disks {
+    ide {
+      ide2 {
+        cloudinit {
+          storage = var.proxmox_storage
+        }
+      }
+    }
+    scsi {
+      scsi0 {
+        disk {
+          size    = var.runner_disk_size
+          storage = var.proxmox_storage
+          format  = "qcow2"
+        }
+      }
+    }
+  }
+
+  network {
+    id     = 0
+    model  = "virtio"
+    bridge = "vmbr0"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      qemu_os,
+      startup_shutdown,
+    ]
+  }
+
+  # cloud-init
+
+  ipconfig0 = "ip=${var.runner_ip}/24,gw=${var.network_gateway}"
+
+  ciuser  = "ops"
+  sshkeys = var.ssh_keys
+}
+
 locals {
-  fqdn = "git.${var.internal_dns_zone}"
+  fqdn        = "git.${var.internal_dns_zone}"
+  runner_fqdn = "gitea-runner.${var.internal_dns_zone}"
 }
 
 resource "ansible_host" "git" {
@@ -87,7 +147,21 @@ resource "ansible_host" "git" {
   }
 }
 
+resource "ansible_host" "gitea_runner" {
+  name   = local.runner_fqdn
+  groups = ["gitea_runner"]
+  variables = {
+    ansible_host = proxmox_vm_qemu.gitea_runner.ssh_host
+    ansible_user = "ops"
+  }
+}
+
 resource "pihole_dns_record" "git" {
   domain = local.fqdn
   ip     = proxmox_vm_qemu.gitea.ssh_host
+}
+
+resource "pihole_dns_record" "gitea_runner" {
+  domain = local.runner_fqdn
+  ip     = proxmox_vm_qemu.gitea_runner.ssh_host
 }

@@ -64,6 +64,7 @@ module "gitea" {
   proxmox_host             = var.proxmox_host
   cloud_init_template_name = var.cloud_init_template_name
   ip                       = var.gitea_ip
+  runner_ip                = var.gitea_runner_ip
 }
 
 module "ingress" {
