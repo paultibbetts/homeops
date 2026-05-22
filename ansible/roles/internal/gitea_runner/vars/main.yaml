@@ -1,0 +1,6 @@
+---
+gitea_runner_download_system: "{{ ansible_facts.system | lower }}"
+gitea_runner_download_arch: "{{ 'amd64' if ansible_facts.architecture == 'x86_64' else ansible_facts.architecture }}"
+gitea_runner_download_filename: "gitea-runner-{{ gitea_runner_version }}-{{ gitea_runner_download_system }}-{{ gitea_runner_download_arch }}"
+gitea_runner_download_url: "https://dl.gitea.com/gitea-runner/{{ gitea_runner_version }}/{{ gitea_runner_download_filename }}"
+gitea_runner_download_checksum_url: "{{ gitea_runner_download_url }}.sha256"

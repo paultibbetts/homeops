@@ -1,6 +1,6 @@
 ---
-- name: Restart act_runner
+- name: Restart gitea_runner
   ansible.builtin.systemd:
-    name: act_runner
+    name: gitea-runner
     state: restarted
     daemon_reload: true

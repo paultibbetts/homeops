@@ -1,8 +1,8 @@
 ---
 galaxy_info:
   author: Paul Tibbetts
-  role_name: act_runner
-  description: Installs Gitea act_runner as a binary systemd service for Docker-backed jobs.
+  role_name: gitea_runner
+  description: Installs Gitea runner as a binary systemd service for Docker-backed jobs.
   license: MIT
   min_ansible_version: "2.15"
   platforms:

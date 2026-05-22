@@ -37,10 +37,10 @@
             minute: "0"
             job: "{{ backup_script }} && {{ healthcheck }}"
 
-- name: Gitea Act Runner
+- name: Gitea Runner
   hosts: gitea_runner
   gather_facts: true
   become: true
   roles:
     - role: geerlingguy.docker
-    - role: act_runner
+    - role: gitea_runner

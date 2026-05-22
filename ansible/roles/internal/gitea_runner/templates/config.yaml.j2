@@ -1,0 +1,43 @@
+# {{ ansible_managed }}
+
+log:
+  level: "{{ gitea_runner_log_level }}"
+
+runner:
+  file: "{{ gitea_runner_runner_file }}"
+  capacity: {{ gitea_runner_capacity }}
+  envs: {}
+  env_file: ""
+  timeout: "{{ gitea_runner_job_timeout }}"
+  insecure: {{ gitea_runner_instance_insecure | bool | ternary('true', 'false') }}
+  fetch_timeout: "{{ gitea_runner_fetch_timeout }}"
+  fetch_interval: "{{ gitea_runner_fetch_interval }}"
+  labels:
+{% for label in gitea_runner_labels %}
+    - "{{ label }}"
+{% endfor %}
+
+cache:
+  enabled: {{ gitea_runner_cache_enabled | bool | ternary('true', 'false') }}
+  dir: "{{ gitea_runner_cache_dir }}"
+  host: "{{ gitea_runner_cache_host }}"
+  port: {{ gitea_runner_cache_port }}
+  external_server: "{{ gitea_runner_cache_external_server }}"
+
+container:
+  network: "{{ gitea_runner_container_network }}"
+  privileged: {{ gitea_runner_container_privileged | bool | ternary('true', 'false') }}
+  options: "{{ gitea_runner_container_options }}"
+  workdir_parent: "{{ gitea_runner_container_workdir_parent }}"
+{% if gitea_runner_container_valid_volumes | length > 0 %}
+  valid_volumes:
+{% for volume in gitea_runner_container_valid_volumes %}
+    - "{{ volume }}"
+{% endfor %}
+{% else %}
+  valid_volumes: []
+{% endif %}
+  docker_host: "{{ gitea_runner_container_docker_host }}"
+
+host:
+  workdir_parent: "{{ gitea_runner_host_workdir_parent }}"

@@ -1,0 +1,150 @@
+---
+- name: Validate gitea-runner platform
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.os_family == "Debian"
+      - ansible_facts.architecture in ["x86_64", "amd64"]
+    fail_msg: >-
+      gitea-runner currently supports Debian-family x86_64 only in this role.
+      Got os_family={{ ansible_facts.os_family }}, arch={{ ansible_facts.architecture }}.
+
+- name: Validate gitea-runner settings
+  ansible.builtin.assert:
+    that:
+      - gitea_runner_instance_url | length > 0
+      - gitea_runner_name | length > 0
+      - gitea_runner_labels is iterable
+      - gitea_runner_labels is not string
+      - gitea_runner_labels | length > 0
+      - gitea_runner_capacity | int > 0
+      - gitea_runner_cache_port | int > 0
+    fail_msg: >-
+      gitea-runner requires gitea_runner_instance_url, gitea_runner_name, at least one
+      label, and positive capacity/cache port values.
+
+- name: Install gitea-runner support packages
+  ansible.builtin.package:
+    name:
+      - acl
+      - ca-certificates
+    state: present
+
+- name: Create gitea-runner group
+  ansible.builtin.group:
+    name: "{{ gitea_runner_group }}"
+    state: present
+
+- name: Create gitea-runner user
+  ansible.builtin.user:
+    name: "{{ gitea_runner_user }}"
+    group: "{{ gitea_runner_group }}"
+    groups: docker
+    append: true
+    home: "{{ gitea_runner_working_directory }}"
+    create_home: true
+    shell: /usr/sbin/nologin
+    system: true
+    comment: Gitea Actions runner
+
+- name: Ensure gitea-runner directories exist
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner | default(gitea_runner_user) }}"
+    group: "{{ item.group | default(gitea_runner_group) }}"
+    mode: "{{ item.mode }}"
+  loop:
+    - path: "{{ gitea_runner_config_dir }}"
+      owner: root
+      group: root
+      mode: "0755"
+    - path: "{{ gitea_runner_working_directory }}"
+      mode: "0750"
+    - path: "{{ gitea_runner_cache_dir }}"
+      mode: "0750"
+    - path: "{{ gitea_runner_container_workdir_parent }}"
+      mode: "0750"
+    - path: "{{ gitea_runner_host_workdir_parent }}"
+      mode: "0750"
+
+- name: Download gitea-runner binary
+  ansible.builtin.get_url:
+    url: "{{ gitea_runner_download_url }}"
+    checksum: "sha256:{{ gitea_runner_download_checksum_url }}"
+    dest: "{{ gitea_runner_binary_path }}"
+    owner: root
+    group: root
+    mode: "0755"
+  notify: Restart gitea_runner
+
+- name: Verify gitea-runner binary runs
+  ansible.builtin.command:
+    argv:
+      - "{{ gitea_runner_binary_path }}"
+      - --version
+  register: gitea_runner_version_check
+  changed_when: false
+
+- name: Render gitea-runner config
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: "{{ gitea_runner_config_path }}"
+    owner: root
+    group: "{{ gitea_runner_group }}"
+    mode: "0640"
+  notify: Restart gitea_runner
+
+- name: Check gitea-runner registration state
+  ansible.builtin.stat:
+    path: "{{ gitea_runner_runner_file }}"
+  register: gitea_runner_registration_state
+
+- name: Validate gitea-runner registration token
+  ansible.builtin.assert:
+    that:
+      - gitea_runner_registration_token | length > 0
+    fail_msg: >-
+      gitea_runner_registration_token is required for initial registration. Put
+      it in Ansible Vault for the gitea_runner group, then rerun this play.
+  when: not gitea_runner_registration_state.stat.exists
+  no_log: true
+
+- name: Register gitea-runner
+  become: true
+  become_user: "{{ gitea_runner_user }}"
+  ansible.builtin.command:
+    argv:
+      - "{{ gitea_runner_binary_path }}"
+      - register
+      - --config
+      - "{{ gitea_runner_config_path }}"
+      - --no-interactive
+      - --instance
+      - "{{ gitea_runner_instance_url }}"
+      - --token
+      - "{{ gitea_runner_registration_token }}"
+      - --name
+      - "{{ gitea_runner_name }}"
+      - --labels
+      - "{{ gitea_runner_labels | join(',') }}"
+    chdir: "{{ gitea_runner_working_directory }}"
+    creates: "{{ gitea_runner_runner_file }}"
+  when: not gitea_runner_registration_state.stat.exists
+  no_log: true
+  notify: Restart gitea_runner
+
+- name: Render gitea-runner systemd unit
+  ansible.builtin.template:
+    src: gitea_runner.service.j2
+    dest: /etc/systemd/system/gitea-runner.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart gitea_runner
+
+- name: Enable and start gitea-runner
+  ansible.builtin.systemd:
+    name: gitea-runner
+    state: started
+    enabled: true
+    daemon_reload: true

@@ -1,0 +1,39 @@
+---
+# renovate: datasource=github-releases depName=gitea/runner extractVersion=^v?(?<version>.*)$
+gitea_runner_version: "1.0.5"
+
+gitea_runner_user: gitea-runner
+gitea_runner_group: gitea-runner
+gitea_runner_binary_path: /usr/local/bin/gitea-runner
+gitea_runner_config_dir: /etc/gitea-runner
+gitea_runner_config_path: "{{ gitea_runner_config_dir }}/config.yaml"
+gitea_runner_working_directory: /var/lib/gitea-runner
+gitea_runner_runner_file: "{{ gitea_runner_working_directory }}/.runner"
+
+gitea_runner_instance_url: ""
+gitea_runner_registration_token: ""
+gitea_runner_name: "{{ inventory_hostname_short | default(inventory_hostname) }}"
+gitea_runner_labels:
+  - "ubuntu-latest:docker://gitea/runner-images:ubuntu-latest"
+
+gitea_runner_log_level: info
+gitea_runner_capacity: 2
+gitea_runner_job_timeout: 3h
+gitea_runner_fetch_timeout: 5s
+gitea_runner_fetch_interval: 2s
+gitea_runner_instance_insecure: false
+
+gitea_runner_cache_enabled: true
+gitea_runner_cache_dir: "{{ gitea_runner_working_directory }}/cache"
+gitea_runner_cache_host: "{{ inventory_hostname }}"
+gitea_runner_cache_port: 8088
+gitea_runner_cache_external_server: ""
+
+gitea_runner_container_network: ""
+gitea_runner_container_privileged: false
+gitea_runner_container_options: ""
+gitea_runner_container_workdir_parent: "{{ gitea_runner_working_directory }}/jobs"
+gitea_runner_container_valid_volumes: []
+gitea_runner_container_docker_host: unix:///var/run/docker.sock
+
+gitea_runner_host_workdir_parent: "{{ gitea_runner_working_directory }}/host-jobs"
