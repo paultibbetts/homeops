@@ -91,6 +91,12 @@ variable "dns_ip" {
   default     = "192.0.2.53"
 }
 
+variable "vpn_ip" {
+  description = "IPv4 address for the VPN VM"
+  type        = string
+  default     = "192.0.2.3"
+}
+
 variable "mysql_ip" {
   description = "IPv4 address for the MySQL VM"
   type        = string

@@ -40,3 +40,20 @@ variable "memory" {
   type        = number
   default     = 2048
 }
+
+variable "ip" {
+  description = "IPv4 address for the VPN VM"
+  type        = string
+  default     = "192.0.2.3"
+}
+
+variable "network_gateway" {
+  description = "IPv4 gateway for the on-prem VM"
+  type        = string
+}
+
+variable "nameserver" {
+  description = "Nameserver used by the on-prem tunnel VM"
+  type        = string
+  default     = "192.0.2.53"
+}

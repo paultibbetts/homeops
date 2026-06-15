@@ -75,7 +75,8 @@ resource "proxmox_vm_qemu" "ingress" {
 }
 
 locals {
-  fqdn = "ingress.${var.internal_dns_zone}"
+  fqdn   = "ingress.${var.internal_dns_zone}"
+  record = "ingress.cloud.paultibbetts.uk"
 }
 
 resource "ansible_host" "ingress" {
@@ -87,7 +88,12 @@ resource "ansible_host" "ingress" {
   }
 }
 
-resource "pihole_dns_record" "ingress" {
+resource "pihole_dns_record" "fqdn" {
   domain = local.fqdn
+  ip     = proxmox_vm_qemu.ingress.ssh_host
+}
+
+resource "pihole_dns_record" "record" {
+  domain = local.record
   ip     = proxmox_vm_qemu.ingress.ssh_host
 }

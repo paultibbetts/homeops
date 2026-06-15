@@ -117,6 +117,9 @@ module "vpn" {
   proxmox_storage          = var.proxmox_storage
   proxmox_host             = var.proxmox_host
   cloud_init_template_name = var.cloud_init_template_name
+  network_gateway          = var.network_gateway
+  ip                       = var.vpn_ip
+  nameserver               = var.dns_ip
 }
 
 module "tunnel" {

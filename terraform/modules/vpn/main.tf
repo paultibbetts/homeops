@@ -68,7 +68,9 @@ resource "proxmox_vm_qemu" "vpn" {
 
   # cloud-init
 
-  ipconfig0     = "ip=dhcp"
+  ipconfig0  = "ip=${var.ip}/24,gw=${var.network_gateway}"
+  nameserver = var.nameserver
+
   skip_ipv6     = true
   agent_timeout = 180
 
