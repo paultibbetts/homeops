@@ -13,7 +13,7 @@ services:
       - SECRET
       - GITHUB_TOKEN
   mongo:
-    image: mongo:4
+    image: mongo:8@sha256:49f1d7b87c2ddf918372be5defe7edff8c46703d0b2a56023a3f825e32e1250c
     restart: always
     volumes:
       - mongo:/data/db
