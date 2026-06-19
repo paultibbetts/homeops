@@ -140,6 +140,10 @@
 	reverse_proxy {{ ingress_services.mealie_enricher.upstream }}
 }
 
+{{ ingress_services.indiekit.domain }} {
+	reverse_proxy {{ ingress_services.indiekit.upstream }}
+}
+
 {{ ingress_services.auth.domain }} {
 	reverse_proxy https://{{ ingress_services.auth.upstream }} {
 		transport http {

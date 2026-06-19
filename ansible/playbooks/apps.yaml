@@ -16,6 +16,8 @@
           - config
       homebox:
         env_template: "{{ playbook_dir }}/../templates/apps/homebox/.env.j2"
+      indiekit:
+        env_template: "{{ playbook_dir }}/../templates/apps/indiekit/.env.j2"
       mealie:
         env_template: "{{ playbook_dir }}/../templates/apps/mealie/.env.j2"
       mealie-enricher:

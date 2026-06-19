@@ -18,6 +18,9 @@ ingress_services:
   homepage:
     domain: "homepage.{{ cloud }}"
     upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:3000"
+  indiekit:
+    domain: "indiekit.paultibbetts.uk"
+    upstream: "{{ hostvars[groups['apps'][0]].ansible_host}}:9080"
   jellyfin:
     domain: "jellyfin.{{ cloud }}"
     upstream: "{{ hostvars[groups['jellyfin'][0]].ansible_host }}:8096"
