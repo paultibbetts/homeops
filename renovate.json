@@ -25,6 +25,7 @@
       "description": "Group Pangolin stack updates",
       "matchFileNames": ["ansible/group_vars/tunnel/main.yaml"],
       "matchDepNames": [
+        "fosrl/newt",
         "docker.io/fosrl/pangolin",
         "docker.io/fosrl/gerbil",
         "docker.io/traefik",
