@@ -10,7 +10,7 @@ terraform {
     }
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "1.63"
+      version = "1.66"
     }
     pihole = {
       source  = "lukaspustina/pihole"
