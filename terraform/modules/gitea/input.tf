@@ -35,7 +35,7 @@ variable "disk_size" {
 }
 
 variable "runner_disk_size" {
-  description = "Disk size for the Gitea VM"
+  description = "Disk size for the Gitea runner VM"
   type        = string
   default     = "100G"
 }
@@ -47,7 +47,7 @@ variable "cores" {
 }
 
 variable "runner_cores" {
-  description = "vCPU cores for the Gitea VM"
+  description = "vCPU cores for the Gitea runner VM"
   type        = number
   default     = 1
 }
@@ -59,7 +59,7 @@ variable "memory" {
 }
 
 variable "runner_memory" {
-  description = "Memory in MB for the Gitea VM"
+  description = "Memory in MB for the Gitea runner VM"
   type        = number
   default     = 2048
 }
@@ -71,7 +71,7 @@ variable "ip" {
 }
 
 variable "runner_ip" {
-  description = "IPv4 address for the Gitea VM"
+  description = "IPv4 address for the Gitea runner VM"
   type        = string
   default     = "192.0.2.44"
 }
