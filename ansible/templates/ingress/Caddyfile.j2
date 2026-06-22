@@ -104,8 +104,6 @@
 
 		reverse_proxy {{ ingress_services.freshrss.upstream }} {
 			header_up Host {host}
-			header_up X-Forwarded-Host {host}
-			header_up X-Forwarded-Proto {scheme}
 			header_up X-Forwarded-Port 443
 			header_down -Access-Control-Allow-Origin
 			header_down -Access-Control-Allow-Methods
@@ -120,8 +118,6 @@
 	handle {
 		reverse_proxy {{ ingress_services.freshrss.upstream }} {
 			header_up Host {host}
-			header_up X-Forwarded-Host {host}
-			header_up X-Forwarded-Proto {scheme}
 			header_up X-Forwarded-Port 443
 		}
 	}
@@ -130,8 +126,6 @@
 {{ ingress_services.mealie.domain }} {
 	reverse_proxy {{ ingress_services.mealie.upstream }} {
 		header_up Host {host}
-		header_up X-Forwarded-Host {host}
-		header_up X-Forwarded-Proto {scheme}
 		header_up X-Forwarded-Port 443
 	}
 }
