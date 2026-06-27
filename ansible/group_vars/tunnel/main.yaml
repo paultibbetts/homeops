@@ -2,7 +2,7 @@
 newt_version: 1.13.0
 
 # renovate: datasource=docker depName=docker.io/fosrl/pangolin
-pangolin_image: "docker.io/fosrl/pangolin:1.19.2@sha256:ecb38d96c32a993a19e9b098d2b8f62bcad0c18041ba97b83c9300d12c45b42c"
+pangolin_image: "docker.io/fosrl/pangolin:1.19.4@sha256:a9a4b0bd136ef7ccead120cf41f85bd1b751ddcd05f42392437b1792546e402f"
 # renovate: datasource=docker depName=docker.io/fosrl/gerbil
 pangolin_gerbil_image: "docker.io/fosrl/gerbil:1.4.2@sha256:6d640c114be57435b37b5a042872f116b53e984546f351820d6a758436d0f991"
 # renovate: datasource=docker depName=docker.io/traefik
