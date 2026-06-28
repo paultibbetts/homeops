@@ -79,6 +79,10 @@ services:
     image: "{{ pangolin_traefik_image }}"
     container_name: traefik
     restart: unless-stopped
+{% if pangolin_acme_challenge_type == "dns" %}
+    env_file:
+      - "{{ pangolin_traefik_env_file_path }}"
+{% endif %}
 {% if pangolin_install_gerbil | bool %}
     network_mode: service:gerbil
 {% else %}

@@ -28,6 +28,22 @@
     that:
       - pangolin_edition in ["community", "enterprise"]
 
+- name: Assert pangolin_acme_challenge_type is http or dns
+  ansible.builtin.assert:
+    that:
+      - pangolin_acme_challenge_type in ["http", "dns"]
+
+- name: Validate Pangolin ACME DNS challenge settings
+  ansible.builtin.assert:
+    that:
+      - pangolin_acme_dns_provider == "cloudflare"
+      - pangolin_cloudflare_dns_api_token | string | length > 0
+    fail_msg: >
+      pangolin_acme_challenge_type is dns, but Cloudflare DNS challenge settings are missing.
+      Set pangolin_acme_dns_provider to cloudflare and pangolin_cloudflare_dns_api_token in Vault.
+  when: pangolin_acme_challenge_type == "dns"
+  no_log: true
+
 - name: Validate Pangolin SMTP configuration
   ansible.builtin.assert:
     that:

@@ -59,6 +59,8 @@ image variables instead.
 
 - `pangolin_app_log_level`: `info` by default.
 - `pangolin_domain_cert_resolver`: Traefik certificate resolver for the configured Pangolin domain (`letsencrypt` by default).
+- `pangolin_acme_challenge_type`: `http` (default) or `dns`. Use `dns` for wildcard certificates.
+- `pangolin_acme_dns_provider`: `cloudflare` by default.
 - `pangolin_telemetry_anonymous_usage`: `true` by default.
 - `pangolin_disable_signup_without_invite`: `true` by default.
 - `pangolin_disable_user_create_org`: `false` by default.
@@ -86,6 +88,7 @@ environment variable or `config.yml` key.
 
 - `pangolin_maxmind_account_id`, `pangolin_maxmind_license_key` (required when `pangolin_enable_geoblocking: true`)
 - `pangolin_crowdsec_lapi_key` (required for CrowdSec bouncer)
+- `pangolin_cloudflare_dns_api_token` (required when `pangolin_acme_challenge_type: dns`)
 
 Notes:
 

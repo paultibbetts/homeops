@@ -48,8 +48,13 @@ certificatesResolvers:
     acme:
       caServer: "https://acme-v02.api.letsencrypt.org/directory"
       email: "{{ pangolin_letsencrypt_email }}"
+{% if pangolin_acme_challenge_type == "dns" %}
+      dnsChallenge:
+        provider: "{{ pangolin_acme_dns_provider }}"
+{% else %}
       httpChallenge:
         entryPoint: web
+{% endif %}
       storage: "/letsencrypt/acme.json"
 
 entryPoints:

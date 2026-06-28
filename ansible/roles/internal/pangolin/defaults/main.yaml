@@ -50,6 +50,7 @@ pangolin_integration_api_port: 3003
 
 # Secrets / env file management for Pangolin.
 pangolin_env_file_path: "{{ pangolin_project_dir }}/.env"
+pangolin_traefik_env_file_path: "{{ pangolin_project_dir }}/traefik.env"
 pangolin_manage_env_file: true
 pangolin_env_extra: {}
 
@@ -66,6 +67,9 @@ pangolin_server_secret: ""
 # Pangolin application configuration (sane defaults; override in inventory/group_vars).
 pangolin_gerbil_start_port: 51820
 pangolin_domain_cert_resolver: "letsencrypt"
+pangolin_acme_challenge_type: "http"
+pangolin_acme_dns_provider: "cloudflare"
+pangolin_cloudflare_dns_api_token: ""
 pangolin_app_log_level: "info"
 pangolin_telemetry_anonymous_usage: true
 pangolin_disable_signup_without_invite: true
