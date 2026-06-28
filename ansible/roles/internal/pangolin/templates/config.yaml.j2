@@ -47,3 +47,6 @@ flags:
   disable_user_create_org: {{ pangolin_disable_user_create_org | bool }}
   allow_raw_resources: {{ pangolin_allow_raw_resources | bool }}
   enable_integration_api: {{ pangolin_enable_integration_api | bool }}
+{% if pangolin_image_is_community_edition | bool %}
+  disable_enterprise_features: {{ pangolin_disable_enterprise_features | bool }}
+{% endif %}

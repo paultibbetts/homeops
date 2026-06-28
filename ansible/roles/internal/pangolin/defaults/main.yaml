@@ -70,6 +70,11 @@ pangolin_telemetry_anonymous_usage: true
 pangolin_disable_signup_without_invite: true
 pangolin_disable_user_create_org: false
 pangolin_allow_raw_resources: true
+pangolin_disable_enterprise_features: false
+
+# Render CE-only config flags only when the Pangolin image looks like the
+# community image. Override this for custom/mirrored enterprise image names.
+pangolin_image_is_community_edition: "{{ (pangolin_image | regex_search('(^|/)pangolin(:|@|$)')) is not none }}"
 
 # CrowdSec middleware configuration for Traefik dynamic config (plugin settings).
 pangolin_crowdsec_client_trusted_ips: []

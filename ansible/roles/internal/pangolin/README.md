@@ -62,6 +62,11 @@ image variables instead.
 - `pangolin_disable_signup_without_invite`: `true` by default.
 - `pangolin_disable_user_create_org`: `false` by default.
 - `pangolin_allow_raw_resources`: `true` by default.
+- `pangolin_disable_enterprise_features`: `false` by default. Rendered only
+  when `pangolin_image_is_community_edition` is true.
+- `pangolin_image_is_community_edition`: inferred from the configured
+  `pangolin_image` basename by default; override it for custom or mirrored
+  image names.
 
 **Secrets (store in Vault)**
 
