@@ -23,6 +23,11 @@
     that:
       - pangolin_runtime in ["docker", "podman"]
 
+- name: Assert pangolin_edition is community or enterprise
+  ansible.builtin.assert:
+    that:
+      - pangolin_edition in ["community", "enterprise"]
+
 - name: Validate Pangolin SMTP configuration
   ansible.builtin.assert:
     that:
@@ -53,3 +58,9 @@
       pangolin_enable_integration_api is true, but pangolin_integration_api_domain or
       pangolin_integration_api_port is missing.
   when: pangolin_enable_integration_api | bool
+
+- name: Validate Pangolin private config
+  ansible.builtin.assert:
+    that:
+      - pangolin_private_config is mapping
+    fail_msg: "pangolin_private_config must be a dictionary."

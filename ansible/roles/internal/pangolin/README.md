@@ -31,6 +31,7 @@ See `defaults/main.yaml` for the full list. The key variables are:
 **Runtime / lifecycle**
 
 - `pangolin_runtime`: `docker` (default) or `podman`.
+- `pangolin_edition`: `community` (default) or `enterprise`.
 - `pangolin_project_dir`: Base directory for the compose project (default: `/srv/pangolin`).
 - `pangolin_owner_user` / `pangolin_owner_group`: Ownership for rendered files/dirs (default: `ops`/`ops`).
 - `pangolin_apply_compose`: If `true` (default), apply changes with `docker compose up -d --remove-orphans`.
@@ -64,9 +65,22 @@ image variables instead.
 - `pangolin_allow_raw_resources`: `true` by default.
 - `pangolin_disable_enterprise_features`: `false` by default. Rendered only
   when `pangolin_image_is_community_edition` is true.
-- `pangolin_image_is_community_edition`: inferred from the configured
-  `pangolin_image` basename by default; override it for custom or mirrored
-  image names.
+- `pangolin_private_config`: `{}` by default. When `pangolin_edition:
+  enterprise` and this dict is non-empty, it is rendered to
+  `config/privateConfig.yml` for Enterprise-only settings.
+- `pangolin_image_is_community_edition`: inferred from `pangolin_edition`.
+
+**Enterprise Edition**
+
+Set `pangolin_edition: enterprise` and update `pangolin_image` to the
+Enterprise image tag. Keeping a single `pangolin_image` override means Renovate
+only tracks the active edition image in inventory.
+
+Enterprise licensing is activated in the Pangolin UI. After deploying the
+Enterprise image, log in as a server admin and activate the license at
+`/admin/license`. The role does not template a license key because Pangolin's
+published self-hosting docs currently document UI activation rather than an
+environment variable or `config.yml` key.
 
 **Secrets (store in Vault)**
 
