@@ -1,5 +1,5 @@
 # renovate: datasource=github-releases depName=fosrl/newt
-newt_version: 1.13.0
+newt_version: 1.14.0
 
 # renovate: datasource=docker depName=docker.io/fosrl/pangolin extractVersion=^ee-(?<version>.*)$
 pangolin_edition: "enterprise"
