@@ -4,7 +4,7 @@ resource "proxmox_vm_qemu" "newt" {
   target_node        = var.proxmox_host
   clone              = var.cloud_init_template_name
   full_clone         = true
-  vm_state           = "running"
+  power_state        = "running"
   start_at_node_boot = true
   agent              = 1
   os_type            = "cloud-init"
