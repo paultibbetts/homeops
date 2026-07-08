@@ -41,6 +41,39 @@
   hosts: gitea_runner
   gather_facts: true
   become: true
-  roles:
-    - role: geerlingguy.docker
-    - role: gitea_runner
+  vars:
+    docker_daemon_dns_servers:
+      - "{{ hostvars[groups['dns'][0]].ansible_host }}"
+  tasks:
+    - name: Install Docker
+      ansible.builtin.import_role:
+        name: geerlingguy.docker
+
+    - name: Ensure Docker config directory exists
+      ansible.builtin.file:
+        path: /etc/docker
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Configure Docker daemon DNS
+      ansible.builtin.copy:
+        dest: /etc/docker/daemon.json
+        content: "{{ {'dns': docker_daemon_dns_servers} | to_nice_json }}\n"
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart Docker
+
+    - name: Apply Docker daemon configuration
+      ansible.builtin.meta: flush_handlers
+
+    - name: Install Gitea runner
+      ansible.builtin.import_role:
+        name: gitea_runner
+  handlers:
+    - name: Restart Docker
+      ansible.builtin.service:
+        name: docker
+        state: restarted
