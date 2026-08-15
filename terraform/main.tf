@@ -14,7 +14,7 @@ terraform {
     }
     proxmox = {
       source  = "telmate/proxmox"
-      version = "3.0.2-rc08"
+      version = "3.0.2-rc09"
     }
   }
   backend "s3" {
