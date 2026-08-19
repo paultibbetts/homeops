@@ -32,6 +32,9 @@ upgrade: deps
 apps: deps
 	uv run ansible-playbook playbooks/apps.yaml $(PLAYBOOK_FLAGS)
 
+auth: deps
+	uv run ansible-playbook playbooks/auth.yaml $(PLAYBOOK_FLAGS)
+
 dns: deps
 	uv run ansible-playbook playbooks/dns.yaml $(PLAYBOOK_FLAGS)
 
