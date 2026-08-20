@@ -14,7 +14,7 @@ pangolin_crowdsec_image: "docker.io/crowdsecurity/crowdsec:v1.7.8@sha256:2f527c9
 pangolin_geoipupdate_image: "ghcr.io/maxmind/geoipupdate:v8.0@sha256:51e70dd6f16cd3e4d845ac02d09940b10772a75b9d741427d235a78570923c1d"
 
 # renovate: datasource=github-releases depName=fosrl/badger
-pangolin_badger_plugin_version: "v1.6.1"
+pangolin_badger_plugin_version: "v1.5.0"
 # renovate: datasource=github-releases depName=maxlerebourg/crowdsec-bouncer-traefik-plugin
 pangolin_crowdsec_bouncer_plugin_version: "v1.7.1"
 
