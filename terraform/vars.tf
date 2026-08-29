@@ -116,9 +116,9 @@ variable "gitea_ip" {
 }
 
 variable "gitea_runner_ip" {
-  description = "IPv4 address for the Gitea VM"
+  description = "IPv4 address for the Gitea runner VM"
   type        = string
-  default     = "192.0.2.44"
+  default     = "192.0.2.45"
 }
 
 variable "ingress_ip" {

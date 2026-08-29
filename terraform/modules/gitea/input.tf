@@ -13,6 +13,11 @@ variable "network_gateway" {
   type        = string
 }
 
+variable "nameserver" {
+  description = "Nameserver used by the Gitea runner VM"
+  type        = string
+}
+
 variable "proxmox_storage" {
   description = "Proxmox storage used for the VM disk"
   type        = string

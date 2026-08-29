@@ -128,6 +128,7 @@ resource "proxmox_vm_qemu" "gitea_runner" {
   # cloud-init
 
   ipconfig0 = "ip=${var.runner_ip}/24,gw=${var.network_gateway}"
+  nameserver = var.nameserver
 
   ciuser  = "ops"
   sshkeys = var.ssh_keys

@@ -63,6 +63,7 @@ module "gitea" {
   proxmox_storage          = var.proxmox_storage
   proxmox_host             = var.proxmox_host
   cloud_init_template_name = var.cloud_init_template_name
+  nameserver               = var.dns_ip
   ip                       = var.gitea_ip
   runner_ip                = var.gitea_runner_ip
 }
