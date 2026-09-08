@@ -4,6 +4,7 @@ services:
 
   app:
     image: ${APP_IMAGE:?APP_IMAGE must be set}
+    pull_policy: always
     environment:
       MEALIE_ENRICHER_MEALIE_BASE_URL: "${MEALIE_ENRICHER_MEALIE_BASE_URL:?MEALIE_ENRICHER_MEALIE_BASE_URL must be set}"
       MEALIE_ENRICHER_MEALIE_TOKEN: "${MEALIE_TOKEN}"
