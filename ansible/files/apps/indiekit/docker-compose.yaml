@@ -15,7 +15,7 @@ services:
       - S3_ACCESS_KEY
       - S3_SECRET_KEY
   mongo:
-    image: mongo:8@sha256:5d7043a4ffe02b9ed1b6e0bab057546981af5ca0a79107e9c461e49bc44c0a7b
+    image: mongo:8@sha256:d0c8f51bb63fb1f992f4ff05293adb3f0967aaaae32c3e5fa567907800819b3b
     restart: always
     volumes:
       - mongo:/data/db
