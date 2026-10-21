@@ -32,6 +32,11 @@ jobs:
       - name: Check Ansible playbook syntax
         working-directory: ansible
         run: |
+          set -euo pipefail
+          vault_password_file="$(mktemp)"
+          trap 'rm -f "${vault_password_file}"' EXIT
+          printf 'ci-syntax-check-only\n' > "${vault_password_file}"
+          ANSIBLE_VAULT_PASSWORD_FILE="${vault_password_file}" \
           uv run ansible-playbook \
             --syntax-check \
             -i 'apps,' \
