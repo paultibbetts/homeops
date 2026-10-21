@@ -36,6 +36,11 @@
       ],
       "groupName": "Pangolin stack",
       "groupSlug": "pangolin-stack"
+    },
+    {
+      "description": "Block Badger v1.8.0: Traefik rejects its plugin-integrity check",
+      "matchDepNames": ["fosrl/badger"],
+      "allowedVersions": "!/^v1\\.8\\.0$/"
     }
   ],
   "customManagers": [
