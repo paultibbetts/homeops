@@ -9,12 +9,32 @@
     - pangolin_apply_compose | bool
     - pangolin_runtime == "docker"
 
+- name: Restart Traefik after static configuration changes with Docker
+  ansible.builtin.command: docker compose restart traefik
+  args:
+    chdir: "{{ pangolin_project_dir }}"
+  changed_when: true
+  listen: pangolin_traefik_static_config_changed
+  when:
+    - pangolin_apply_compose | bool
+    - pangolin_runtime == "docker"
+
 - name: Apply Pangolin compose changes with Podman
   listen: pangolin_compose_changed
   ansible.builtin.command: podman compose -f docker-compose.yaml up -d --remove-orphans
   args:
     chdir: "{{ pangolin_project_dir }}"
   changed_when: true
+  when:
+    - pangolin_apply_compose | bool
+    - pangolin_runtime == "podman"
+
+- name: Restart Traefik after static configuration changes with Podman
+  ansible.builtin.command: podman compose -f docker-compose.yaml restart traefik
+  args:
+    chdir: "{{ pangolin_project_dir }}"
+  changed_when: true
+  listen: pangolin_traefik_static_config_changed
   when:
     - pangolin_apply_compose | bool
     - pangolin_runtime == "podman"
