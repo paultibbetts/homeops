@@ -1,0 +1,38 @@
+name: Ansible toolchain
+
+on:
+  pull_request:
+    paths:
+      - ansible/.python-version
+      - ansible/pyproject.toml
+      - ansible/uv.lock
+      - ansible/playbooks/**
+      - ansible/roles/**
+      - ansible/group_vars/**
+      - renovate.json
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Create the pinned toolchain
+        working-directory: ansible
+        run: |
+          uv python install "$(tr -d '[:space:]' < .python-version)"
+          uv sync --locked --all-groups
+
+      - name: Parse the Renovate config
+        run: jq empty renovate.json
+
+      - name: Check Ansible playbook syntax
+        working-directory: ansible
+        run: |
+          uv run ansible-playbook \
+            --syntax-check \
+            -i 'apps,' \
+            playbooks/renovate.yaml
