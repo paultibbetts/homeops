@@ -7,7 +7,7 @@ roles:
     version: 4.1.0
   - name: paultibbetts.caddy
     src: https://github.com/paultibbetts/ansible-role-caddy
-    version: 1.0.0
+    version: 1.0.1
 collections:
   - name: ansible.posix
     version: ">=2.1.0,<3.0.0"
