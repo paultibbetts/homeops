@@ -17,14 +17,10 @@ pause() {
 }
 
 echo ""
-read -r -p "Is this the initial setup? [Y/n] " response
+read -r -p "Is this the initial setup? [y/N] " response
 
 case "$response" in
-  [nN]|[nN][oO])
-    source "$ANSIBLE_DIR/../terraform/secrets.sh"
-    uv run ansible-playbook site.yaml --limit tunnel
-    ;;
-  *)
+  [yY]|[yY][eE][sS])
     # 0) Warn about 'pangolin_crowdsec_lapi_key'
     pause "Ensure you have not set 'pangolin_crowdsec_lapi_key' in 'group_vars/tunnel/vault.yaml'"
 
@@ -57,6 +53,10 @@ case "$response" in
 
     # 6) Run Newt with full blueprint using the IDP ID
     uv run ansible-playbook playbooks/tunnel.yaml --tags newt
+    ;;
+  *)
+    source "$ANSIBLE_DIR/../terraform/secrets.sh"
+    uv run ansible-playbook site.yaml --limit tunnel
     ;;
 esac
 
