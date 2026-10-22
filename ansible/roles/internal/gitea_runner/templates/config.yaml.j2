@@ -23,6 +23,7 @@ cache:
   host: "{{ gitea_runner_cache_host }}"
   port: {{ gitea_runner_cache_port }}
   external_server: "{{ gitea_runner_cache_external_server }}"
+  v2: {{ gitea_runner_cache_v2 | bool | ternary('true', 'false') }}
 
 container:
   network: "{{ gitea_runner_container_network }}"
@@ -38,6 +39,7 @@ container:
   valid_volumes: []
 {% endif %}
   docker_host: "{{ gitea_runner_container_docker_host }}"
+  force_pull: {{ gitea_runner_container_force_pull | bool | ternary('true', 'false') }}
 
 host:
   workdir_parent: "{{ gitea_runner_host_workdir_parent }}"

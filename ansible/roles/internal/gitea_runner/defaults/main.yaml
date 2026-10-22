@@ -1,6 +1,6 @@
 ---
 # renovate: datasource=github-releases depName=gitea/runner extractVersion=^v?(?<version>.*)$
-gitea_runner_version: "1.0.5"
+gitea_runner_version: "5.1.1"
 
 gitea_runner_user: gitea-runner
 gitea_runner_group: gitea-runner
@@ -28,6 +28,7 @@ gitea_runner_cache_dir: "{{ gitea_runner_working_directory }}/cache"
 gitea_runner_cache_host: "{{ inventory_hostname }}"
 gitea_runner_cache_port: 8088
 gitea_runner_cache_external_server: ""
+gitea_runner_cache_v2: true
 
 gitea_runner_container_network: ""
 gitea_runner_container_privileged: false
@@ -35,5 +36,6 @@ gitea_runner_container_options: ""
 gitea_runner_container_workdir_parent: "{{ gitea_runner_working_directory }}/jobs"
 gitea_runner_container_valid_volumes: []
 gitea_runner_container_docker_host: unix:///var/run/docker.sock
+gitea_runner_container_force_pull: true
 
 gitea_runner_host_workdir_parent: "{{ gitea_runner_working_directory }}/host-jobs"
