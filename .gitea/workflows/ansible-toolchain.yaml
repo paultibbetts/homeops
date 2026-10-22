@@ -6,9 +6,11 @@ on:
       - ansible/.python-version
       - ansible/pyproject.toml
       - ansible/uv.lock
+      - ansible/requirements.yaml
       - ansible/playbooks/**
       - ansible/roles/**
       - ansible/group_vars/**
+      - .gitea/workflows/ansible-toolchain.yaml
       - renovate.json
 
 jobs:
@@ -28,6 +30,12 @@ jobs:
 
       - name: Parse the Renovate config
         run: jq empty renovate.json
+
+      - name: Install Ansible dependencies
+        working-directory: ansible
+        run: |
+          uv run ansible-galaxy role install -r requirements.yaml -p roles/galaxy
+          uv run ansible-galaxy collection install -r requirements.yaml
 
       - name: Check Ansible playbook syntax
         working-directory: ansible
