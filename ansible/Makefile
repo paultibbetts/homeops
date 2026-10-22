@@ -27,6 +27,9 @@ site: deps
 upgrade: deps
 	uv run ansible-playbook playbooks/system-upgrade.yaml $(PLAYBOOK_FLAGS)
 
+upgrade-reboot: deps
+	uv run ansible-playbook playbooks/system-upgrade.yaml $(PLAYBOOK_FLAGS) -e reboot=true
+
 # Playbooks
 
 apps: deps
