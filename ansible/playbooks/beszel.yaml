@@ -2,8 +2,35 @@
 - name: Beszel Hub
   hosts: monpi
   become: true
+  vars:
+    beszel_hub_app_url: "https://beszel.cloud.paultibbetts.uk"
   roles:
     - role: community.beszel.hub
+  tasks:
+    - name: Create Beszel hub systemd override directory
+      ansible.builtin.file:
+        path: /etc/systemd/system/beszel-hub.service.d
+        state: directory
+        owner: root
+        group: root
+        mode: u=rwx,g=rx,o=rx
+
+    - name: Configure public Beszel URL
+      ansible.builtin.copy:
+        content: |
+          [Service]
+          Environment="APP_URL={{ beszel_hub_app_url }}"
+        dest: /etc/systemd/system/beszel-hub.service.d/public-url.conf
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
+      notify: Restart Beszel hub to apply public URL
+  handlers:
+    - name: Restart Beszel hub to apply public URL
+      ansible.builtin.systemd_service:
+        name: beszel-hub
+        state: restarted
+        daemon_reload: true
   tags:
     - beszel
     - beszel_hub
