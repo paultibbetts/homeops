@@ -17,7 +17,7 @@ gitea_runner_labels:
   - "ubuntu-latest:docker://docker.gitea.com/runner-images:ubuntu-latest"
 
 gitea_runner_log_level: info
-gitea_runner_capacity: 2
+gitea_runner_capacity: 1
 gitea_runner_job_timeout: 3h
 gitea_runner_fetch_timeout: 5s
 gitea_runner_fetch_interval: 2s
