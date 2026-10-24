@@ -4,7 +4,7 @@ newt_version: 1.19.0
 pangolin_edition: "enterprise"
 # Keep Renovate on Pangolin's Enterprise image channel; only ee-* tags match.
 # renovate: datasource=docker depName=docker.io/fosrl/pangolin versioning=regex:^ee-(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$
-pangolin_image: "docker.io/fosrl/pangolin:ee-1.25.1@sha256:99bc39dc35019b27c22632db944685cbbd47fa7ef972d0465764fbb8c24573a9"
+pangolin_image: "docker.io/fosrl/pangolin:ee-1.25.3@sha256:f2c0fc54e1b59efcd23b8685e8df84350f363e14ebe1c13ce88a681f181ca49e"
 # renovate: datasource=docker depName=docker.io/fosrl/gerbil
 pangolin_gerbil_image: "docker.io/fosrl/gerbil:1.5.2@sha256:1f6e64eaba7997282c7067ba19922fc7e46b5f73e1a27add3dd66a591d50512f"
 # renovate: datasource=docker depName=docker.io/traefik
