@@ -41,6 +41,9 @@ auth: deps
 dns: deps
 	uv run ansible-playbook playbooks/dns.yaml $(PLAYBOOK_FLAGS)
 
+git: deps
+	uv run ansible-playbook playbooks/git.yaml $(PLAYBOOK_FLAGS)
+
 ingress: deps
 	uv run ansible-playbook playbooks/ingress.yaml $(PLAYBOOK_FLAGS)
 
