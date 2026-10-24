@@ -66,6 +66,8 @@ module "gitea" {
   nameserver               = var.dns_ip
   ip                       = var.gitea_ip
   runner_ip                = var.gitea_runner_ip
+  runner_cores             = var.gitea_runner_cores
+  runner_memory            = var.gitea_runner_memory
 }
 
 module "ingress" {

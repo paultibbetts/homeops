@@ -121,6 +121,18 @@ variable "gitea_runner_ip" {
   default     = "192.0.2.45"
 }
 
+variable "gitea_runner_cores" {
+  description = "vCPU cores for the Gitea runner VM"
+  type        = number
+  default     = 4
+}
+
+variable "gitea_runner_memory" {
+  description = "Memory in MB for the Gitea runner VM"
+  type        = number
+  default     = 8192
+}
+
 variable "ingress_ip" {
   description = "IPv4 address for the ingress VM"
   type        = string
