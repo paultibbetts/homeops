@@ -33,6 +33,9 @@ ingress_services:
   minio:
     domain: "minio.{{ cloud }}"
     upstream: "{{ truenas_ip }}:9002"
+  nexroll:
+    domain: "nexroll.{{ cloud }}"
+    upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:9393"
   ntfy:
     domain: "ntfy.{{ cloud }}"
     upstream: "{{ hostvars[groups['apps'][0]].ansible_host }}:8093"

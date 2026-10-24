@@ -55,3 +55,9 @@
       loop_control:
         loop_var: app_def
         label: "{{ app_def.key }}"
+
+    - name: Deploy NeXroll
+      ansible.builtin.include_role:
+        name: nexroll
+      tags:
+        - nexroll

@@ -1,0 +1,19 @@
+[Unit]
+Description=NeXroll Docker Compose application
+Wants=network-online.target
+After=network-online.target docker.service
+Requires=docker.service
+RequiresMountsFor={{ nexroll_nfs_mountpoint }}
+
+[Service]
+Type=simple
+WorkingDirectory={{ nexroll_app_path }}
+ExecStartPre=/usr/bin/findmnt --target {{ nexroll_preroll_host_path }} --types nfs,nfs4 --noheadings
+ExecStart=/usr/bin/docker compose up --remove-orphans
+ExecStop=/usr/bin/docker compose down
+Restart=always
+RestartSec=15
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target

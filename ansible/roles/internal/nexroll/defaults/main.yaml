@@ -1,0 +1,13 @@
+---
+nexroll_app_name: nexroll
+nexroll_app_path: "/srv/www/apps/{{ nexroll_app_name }}"
+nexroll_data_path: "{{ nexroll_app_path }}/data"
+
+nexroll_nfs_server: ""
+nexroll_nfs_export: ""
+nexroll_nfs_mountpoint: /mnt/nas-media
+nexroll_nfs_options: rw,hard,noatime,nfsvers=4.2,_netdev,nofail
+nexroll_preroll_host_path: "{{ nexroll_nfs_mountpoint }}/Prerolls"
+
+nexroll_puid: ""
+nexroll_pgid: ""

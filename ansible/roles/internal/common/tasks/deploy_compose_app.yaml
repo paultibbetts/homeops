@@ -77,7 +77,9 @@
         project_src: "{{ app_path }}"
         project_name: "{{ app_name }}"
         remove_orphans: true
-      when: not ansible_check_mode
+      when:
+        - not ansible_check_mode
+        - compose_start | default(true) | bool
 
     - name: "Enforce ownership on volume roots for {{ app_name }}"
       become: "{{ compose_app_become_fs }}"

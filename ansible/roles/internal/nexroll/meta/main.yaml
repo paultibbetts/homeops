@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: Paul Tibbetts
+  description: Deploys NeXroll with NFS-backed preroll storage.
+  license: MIT
+  min_ansible_version: "2.12"
+  galaxy_tags:
+    - docker
+    - compose
+    - jellyfin
+    - nfs
+
+dependencies: []

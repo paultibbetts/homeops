@@ -1,0 +1,14 @@
+---
+nexroll_app_name: nexroll
+nexroll_app_path: /srv/www/apps/nexroll
+nexroll_data_path: /srv/www/apps/nexroll/data
+nexroll_bind_address: 10.1.21.10
+
+nexroll_nfs_server: 10.1.21.4
+nexroll_nfs_export: /mnt/nvme-storage/media
+nexroll_nfs_mountpoint: /mnt/nas-media
+nexroll_nfs_options: rw,hard,noatime,nfsvers=4.2,_netdev,nofail
+nexroll_preroll_host_path: /mnt/nas-media/Prerolls
+
+nexroll_puid: 3005
+nexroll_pgid: 3005

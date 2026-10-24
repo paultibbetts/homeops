@@ -1,0 +1,30 @@
+services:
+  nexroll:
+    image: gitea.cloud.paultibbetts.uk/paul/nexroll:develop
+    pull_policy: always
+    container_name: nexroll
+    restart: "no"
+    ports:
+      - "${NEXROLL_BIND_ADDRESS:?NEXROLL_BIND_ADDRESS must be set}:9393:9393"
+    environment:
+      TZ: Europe/London
+      NEXROLL_PORT: "9393"
+      NEXROLL_DB_DIR: /data
+      NEXROLL_PREROLL_PATH: /data/prerolls
+      NEXROLL_SECRETS_DIR: /data
+      NEXROLL_RUN_AS_PUID: "true"
+      PUID: "${NEXROLL_PUID:?NEXROLL_PUID must be set}"
+      PGID: "${NEXROLL_PGID:?NEXROLL_PGID must be set}"
+    volumes:
+      - ./data:/data
+      - ${NEXROLL_PREROLL_HOST_PATH:?NEXROLL_PREROLL_HOST_PATH must be set}:/data/prerolls
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:9393/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"

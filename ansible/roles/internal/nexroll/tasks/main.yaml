@@ -1,0 +1,96 @@
+---
+- name: Validate NeXroll configuration
+  ansible.builtin.assert:
+    that:
+      - nexroll_nfs_server | length > 0
+      - nexroll_nfs_export | length > 0
+      - nexroll_puid | string | length > 0
+      - nexroll_pgid | string | length > 0
+
+- name: Install NFS client
+  ansible.builtin.apt:
+    name: nfs-common
+    state: present
+    update_cache: true
+  become: true
+
+- name: Check whether the NeXroll NFS mountpoint is already mounted
+  ansible.builtin.command:
+    argv:
+      - mountpoint
+      - -q
+      - "{{ nexroll_nfs_mountpoint }}"
+  register: nexroll_mountpoint
+  changed_when: false
+  failed_when: false
+  become: true
+
+- name: Ensure NeXroll NFS mountpoint exists
+  ansible.builtin.file:
+    path: "{{ nexroll_nfs_mountpoint }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: nexroll_mountpoint.rc != 0
+  become: true
+
+- name: Mount NAS media for NeXroll
+  ansible.posix.mount:
+    path: "{{ nexroll_nfs_mountpoint }}"
+    src: "{{ nexroll_nfs_server }}:{{ nexroll_nfs_export }}"
+    fstype: nfs4
+    opts: "{{ nexroll_nfs_options }}"
+    state: mounted
+  become: true
+
+- name: Verify NeXroll preroll directory is on NFS
+  ansible.builtin.command:
+    argv:
+      - findmnt
+      - --target
+      - "{{ nexroll_preroll_host_path }}"
+      - --types
+      - nfs,nfs4
+      - --noheadings
+  changed_when: false
+  become: true
+
+- name: Stage NeXroll Compose project
+  ansible.builtin.include_tasks: "{{ role_path }}/../common/tasks/deploy_compose_app.yaml"
+  vars:
+    app_name: "{{ nexroll_app_name }}"
+    app_path: "{{ nexroll_app_path }}"
+    compose_src: "{{ playbook_dir }}/../files/apps/nexroll/docker-compose.yaml"
+    app_user: "{{ ansible_user }}"
+    env_template: "{{ playbook_dir }}/../templates/apps/nexroll/.env.j2"
+    volume_dirs:
+      - data
+    compose_start: false
+
+- name: Restrict NeXroll application data access
+  ansible.builtin.file:
+    path: "{{ nexroll_data_path }}"
+    state: directory
+    owner: "{{ nexroll_puid }}"
+    group: "{{ nexroll_pgid }}"
+    mode: "0750"
+  become: true
+
+- name: Install NeXroll service
+  ansible.builtin.template:
+    src: nexroll.service.j2
+    dest: /etc/systemd/system/nexroll.service
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+
+- name: Enable and restart NeXroll service
+  ansible.builtin.systemd_service:
+    name: nexroll
+    daemon_reload: true
+    enabled: true
+    state: restarted
+  become: true
+  when: not ansible_check_mode
