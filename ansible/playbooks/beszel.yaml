@@ -70,3 +70,78 @@
         state: restarted
       tags:
         - restart
+
+- name: Beszel Agent through the private Pangolin route
+  hosts: tunnel:&site_edge
+  become: true
+  vars:
+    # Pangolin itself is Docker-based. Keep its monitoring path restricted to
+    # the same filtered socket used on the Docker application hosts.
+    beszel_docker_socket_proxy_enabled: true
+    agent_docker_host: unix:///run/beszel/docker.sock
+    agent_public_key: "{{ vault_beszel_hub_public_key }}"
+    agent_token: "{{ vault_beszel_agent_token }}"
+    agent_hub_url: "{{ pangolin_beszel_hub_url }}"
+  pre_tasks:
+    - name: Verify the Pangolin machine client is enabled for the edge agent
+      ansible.builtin.assert:
+        that: pangolin_beszel_machine_client_enabled | bool
+        fail_msg: >-
+          Enable pangolin_beszel_machine_client_enabled only after creating the
+          private Beszel Hub resource, its machine client, and vault credentials.
+
+    - name: Verify the Pangolin machine client is active
+      ansible.builtin.systemd_service:
+        name: pangolin-beszel-machine-client
+      register: pangolin_beszel_machine_client_service
+      changed_when: false
+
+    - name: Assert the Pangolin machine client is active
+      ansible.builtin.assert:
+        that: pangolin_beszel_machine_client_service.status.ActiveState == 'active'
+        fail_msg: Pangolin's Beszel machine client is not active.
+
+    - name: Verify the Beszel Hub is reachable through the private route
+      ansible.builtin.wait_for:
+        host: "{{ hostvars[groups['monpi'][0]].ansible_host }}"
+        port: 8090
+        timeout: 30
+  roles:
+    - role: community.beszel.agent
+  tasks:
+    - name: Configure filtered Docker socket for Beszel
+      ansible.builtin.include_role:
+        name: beszel_socket_proxy
+      when: beszel_docker_socket_proxy_enabled | bool
+
+    - name: Configure Beszel agent dependency on the Pangolin machine client
+      ansible.builtin.file:
+        path: /etc/systemd/system/beszel-agent.service.d
+        state: directory
+        owner: root
+        group: root
+        mode: u=rwx,g=rx,o=rx
+
+    - name: Add Beszel agent dependency on the Pangolin machine client
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/beszel-agent.service.d/pangolin-machine-client.conf
+        content: |
+          [Unit]
+          Requires=pangolin-beszel-machine-client.service
+          After=pangolin-beszel-machine-client.service
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
+
+    - name: Reload systemd daemon
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Restart Beszel agent through the private Pangolin route
+      ansible.builtin.systemd:
+        name: beszel-agent
+        state: restarted
+  tags:
+    - beszel
+    - beszel_agent
+    - pangolin_beszel_edge

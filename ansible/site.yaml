@@ -18,6 +18,9 @@
 - name: Apps
   ansible.builtin.import_playbook: playbooks/apps.yaml
   tags: [apps]
+- name: Tunnel
+  ansible.builtin.import_playbook: playbooks/tunnel.yaml
+  tags: [tunnel]
 - name: Monitoring
   ansible.builtin.import_playbook: playbooks/monitoring.yaml
   tags: [monitoring]
@@ -27,9 +30,6 @@
 - name: DNS
   ansible.builtin.import_playbook: playbooks/dns.yaml
   tags: [dns]
-- name: Tunnel
-  ansible.builtin.import_playbook: playbooks/tunnel.yaml
-  tags: [tunnel]
 - name: VPN
   ansible.builtin.import_playbook: playbooks/vpn.yaml
   tags: [vpn]

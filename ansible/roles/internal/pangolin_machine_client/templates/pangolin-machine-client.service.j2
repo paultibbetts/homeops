@@ -1,0 +1,14 @@
+[Unit]
+Description=Pangolin machine client for private Beszel access
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile={{ pangolin_machine_client_env_file }}
+ExecStart={{ pangolin_machine_client_binary_path }} up --id ${PANGOLIN_MACHINE_CLIENT_ID} --secret ${PANGOLIN_MACHINE_CLIENT_SECRET} --endpoint ${PANGOLIN_MACHINE_CLIENT_ENDPOINT} --attach
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

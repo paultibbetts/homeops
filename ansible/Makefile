@@ -1,4 +1,4 @@
-.PHONY: setup deps deps-upgrade lint site upgrade apps dns ingress
+.PHONY: setup deps deps-upgrade lint site upgrade apps dns ingress tunnel
 
 GALAXY_FLAGS ?=
 PLAYBOOK_FLAGS ?=

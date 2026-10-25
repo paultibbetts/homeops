@@ -1,0 +1,14 @@
+---
+pangolin_machine_client_repo: fosrl/cli
+pangolin_machine_client_version: "0.18.1"
+pangolin_machine_client_binary_path: /usr/local/bin/pangolin
+pangolin_machine_client_service_name: pangolin-beszel-machine-client
+pangolin_machine_client_env_file: /etc/pangolin/beszel-machine-client.env
+pangolin_machine_client_id: ""
+pangolin_machine_client_secret: ""
+pangolin_machine_client_endpoint: ""
+pangolin_machine_client_target_host: ""
+pangolin_machine_client_target_port: 0
+pangolin_machine_client_arch_map:
+  x86_64: amd64
+  aarch64: arm64

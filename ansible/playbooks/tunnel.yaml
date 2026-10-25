@@ -6,6 +6,17 @@
   roles:
     - role: geerlingguy.docker
     - role: pangolin
+    - role: pangolin_machine_client
+      when: pangolin_beszel_machine_client_enabled | bool
+      vars:
+        pangolin_machine_client_version: "{{ pangolin_beszel_machine_client_version }}"
+        pangolin_machine_client_id: "{{ vault_pangolin_beszel_machine_client_id | default('') }}"
+        pangolin_machine_client_secret: "{{ vault_pangolin_beszel_machine_client_secret | default('') }}"
+        pangolin_machine_client_endpoint: "{{ vault_newt_endpoint }}"
+        pangolin_machine_client_target_host: "{{ hostvars[groups['monpi'][0]].ansible_host }}"
+        pangolin_machine_client_target_port: 8090
+      tags:
+        - pangolin_beszel_machine_client
   tags:
     - pangolin
 

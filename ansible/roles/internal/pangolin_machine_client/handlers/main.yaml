@@ -1,0 +1,6 @@
+---
+- name: Restart Pangolin machine client
+  ansible.builtin.systemd_service:
+    name: "{{ pangolin_machine_client_service_name }}"
+    state: restarted
+    daemon_reload: true

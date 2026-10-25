@@ -1,0 +1,74 @@
+---
+- name: Validate Pangolin machine-client configuration
+  ansible.builtin.assert:
+    that:
+      - pangolin_machine_client_id | length > 0
+      - pangolin_machine_client_secret | length > 0
+      - pangolin_machine_client_endpoint | length > 0
+      - pangolin_machine_client_target_host | length > 0
+      - pangolin_machine_client_target_port | int > 0
+      - ansible_facts['architecture'] in pangolin_machine_client_arch_map
+    fail_msg: >-
+      Pangolin machine-client credentials, a private target, and a supported
+      architecture are required before enabling the Beszel edge agent.
+
+- name: Download pinned Pangolin CLI
+  ansible.builtin.get_url:
+    url: >-
+      {{
+        'https://github.com/' ~ pangolin_machine_client_repo ~
+        '/releases/download/' ~ pangolin_machine_client_version ~
+        '/pangolin-cli_linux_' ~
+        pangolin_machine_client_arch_map[ansible_facts['architecture']]
+      }}
+    dest: "{{ pangolin_machine_client_binary_path }}"
+    owner: root
+    group: root
+    mode: "0755"
+    force: true
+
+- name: Create Pangolin machine-client configuration directory
+  ansible.builtin.file:
+    path: "{{ pangolin_machine_client_env_file | dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Write Pangolin machine-client credentials
+  ansible.builtin.copy:
+    dest: "{{ pangolin_machine_client_env_file }}"
+    content: |
+      PANGOLIN_MACHINE_CLIENT_ID={{ pangolin_machine_client_id }}
+      PANGOLIN_MACHINE_CLIENT_SECRET={{ pangolin_machine_client_secret }}
+      PANGOLIN_MACHINE_CLIENT_ENDPOINT={{ pangolin_machine_client_endpoint }}
+    owner: root
+    group: root
+    mode: "0600"
+  no_log: true
+  notify: Restart Pangolin machine client
+
+- name: Install Pangolin machine-client service
+  ansible.builtin.template:
+    src: pangolin-machine-client.service.j2
+    dest: "/etc/systemd/system/{{ pangolin_machine_client_service_name }}.service"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart Pangolin machine client
+
+- name: Enable and start Pangolin machine client
+  ansible.builtin.systemd_service:
+    name: "{{ pangolin_machine_client_service_name }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Apply pending Pangolin machine-client configuration changes
+  ansible.builtin.meta: flush_handlers
+
+- name: Verify the private Beszel route is reachable
+  ansible.builtin.wait_for:
+    host: "{{ pangolin_machine_client_target_host }}"
+    port: "{{ pangolin_machine_client_target_port }}"
+    timeout: 30
