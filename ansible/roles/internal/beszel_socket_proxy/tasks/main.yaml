@@ -1,0 +1,68 @@
+---
+- name: Gather Beszel agent account details
+  ansible.builtin.getent:
+    database: passwd
+    key: beszel
+
+- name: Gather Docker group details
+  ansible.builtin.getent:
+    database: group
+    key: docker
+
+- name: Validate Beszel socket proxy prerequisites
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.getent_passwd.beszel is defined
+      - ansible_facts.getent_group.docker is defined
+    fail_msg: >-
+      The Beszel socket proxy requires the Beszel agent account and Docker group.
+      Install Docker and the Beszel agent before enabling it for this host.
+
+- name: Set Beszel socket proxy identity facts
+  ansible.builtin.set_fact:
+    beszel_socket_proxy_uid: "{{ ansible_facts.getent_passwd.beszel[1] }}"
+    beszel_socket_proxy_docker_gid: "{{ ansible_facts.getent_group.docker[1] }}"
+
+- name: Install Beszel socket proxy tmpfiles configuration
+  ansible.builtin.template:
+    src: beszel-socket-proxy.conf.j2
+    dest: /etc/tmpfiles.d/beszel-socket-proxy.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Create Beszel socket proxy runtime directory
+  ansible.builtin.file:
+    path: "{{ beszel_socket_proxy_runtime_dir }}"
+    state: directory
+    owner: beszel
+    group: beszel
+    mode: "0700"
+
+- name: Run filtered Docker socket proxy for Beszel
+  community.docker.docker_container:
+    name: "{{ beszel_socket_proxy_name }}"
+    image: "{{ beszel_socket_proxy_image }}"
+    pull: missing
+    state: started
+    restart_policy: unless-stopped
+    network_mode: none
+    user: "{{ beszel_socket_proxy_uid }}:{{ beszel_socket_proxy_docker_gid }}"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opts:
+      - no-new-privileges:true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "{{ beszel_socket_proxy_runtime_dir }}:/socket"
+    env:
+      SP_PROXYSOCKETENDPOINT: /socket/docker.sock
+      SP_PROXYSOCKETENDPOINTFILEMODE: "0600"
+      SP_ALLOW_GET: /version
+      SP_ALLOW_GET_2: /info
+      SP_ALLOW_GET_3: /containers/json
+      SP_ALLOW_GET_4: /containers/[a-fA-F0-9]{12,64}/stats
+      SP_ALLOW_GET_5: /containers/[a-fA-F0-9]{12,64}/json
+      SP_ALLOW_GET_6: /containers/[a-fA-F0-9]{12,64}/logs
+      SP_ALLOW_GET_7: /images/.+/json

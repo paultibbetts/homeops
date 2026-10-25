@@ -1,6 +1,9 @@
 beszel_agent: true
 beszel_agent_autoupdate: true
 beszel_agent_ssh_port: 45876
+beszel_docker_socket_proxy_enabled: false
+# renovate: datasource=docker depName=ghcr.io/wollomatic/socket-proxy
+beszel_socket_proxy_image: "ghcr.io/wollomatic/socket-proxy:1.13.1@sha256:e78e68ba3ea4a6bf8ee47865ac1d1f98d525c3660df948554e766283c40d3f4b"
 
 common_users:
   - name: paul

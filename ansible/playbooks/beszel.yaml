@@ -42,6 +42,9 @@
   roles:
     - role: community.beszel.agent
   vars:
+    agent_docker_host: >-
+      {{ 'unix:///run/beszel/docker.sock'
+         if beszel_docker_socket_proxy_enabled | bool else '' }}
     agent_public_key: "{{ vault_beszel_hub_public_key }}"
     agent_token: "{{ vault_beszel_agent_token }}"
     agent_hub_url: "{{ vault_beszel_agent_hub_url }}"
@@ -50,6 +53,11 @@
     - beszel_agent
     - agent
   tasks:
+    - name: Configure filtered Docker socket for Beszel
+      ansible.builtin.include_role:
+        name: beszel_socket_proxy
+      when: beszel_docker_socket_proxy_enabled | bool
+
     - name: Reload systemd daemon
       ansible.builtin.systemd:
         daemon_reload: true

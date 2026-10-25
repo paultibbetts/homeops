@@ -1,0 +1,5 @@
+---
+beszel_socket_proxy_image: "ghcr.io/wollomatic/socket-proxy:latest"
+beszel_socket_proxy_name: beszel-socket-proxy
+beszel_socket_proxy_runtime_dir: /run/beszel
+beszel_socket_proxy_socket_path: "{{ beszel_socket_proxy_runtime_dir }}/docker.sock"

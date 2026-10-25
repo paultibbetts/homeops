@@ -12,6 +12,13 @@
       "pinDigests": false
     },
     {
+      "description": "Pin the Beszel socket proxy digest",
+      "matchDatasources": ["docker"],
+      "matchDepNames": ["ghcr.io/wollomatic/socket-proxy"],
+      "matchFileNames": ["ansible/group_vars/all/main.yaml"],
+      "pinDigests": true
+    },
+    {
       "description": "Disable digest pinning for pyenv-managed Python versions",
       "matchManagers": ["pyenv"],
       "pinDigests": false
