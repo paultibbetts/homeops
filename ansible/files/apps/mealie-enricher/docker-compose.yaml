@@ -1,6 +1,18 @@
 services:
   parser:
     image: ${PARSER_IMAGE:?PARSER_IMAGE must be set}
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "from urllib.request import urlopen; urlopen('http://localhost:8000/healthz', timeout=5).read()",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   app:
     image: ${APP_IMAGE:?APP_IMAGE must be set}
@@ -12,4 +24,5 @@ services:
     ports:
       - "9001:8080"
     depends_on:
-      - parser
+      parser:
+        condition: service_healthy
