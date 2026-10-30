@@ -59,5 +59,8 @@
     - name: Deploy NeXroll
       ansible.builtin.include_role:
         name: nexroll
+        apply:
+          tags:
+            - nexroll
       tags:
         - nexroll

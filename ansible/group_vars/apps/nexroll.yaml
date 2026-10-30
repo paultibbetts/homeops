@@ -9,6 +9,7 @@ nexroll_nfs_export: /mnt/nvme-storage/media
 nexroll_nfs_mountpoint: /mnt/nas-media
 nexroll_nfs_options: rw,hard,noatime,nfsvers=4.2,_netdev,nofail
 nexroll_preroll_host_path: /mnt/nas-media/Prerolls
+nexroll_media_host_path: /mnt/nas-media
 
 nexroll_puid: 3005
 nexroll_pgid: 3005
