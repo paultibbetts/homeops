@@ -37,13 +37,13 @@ variable "disk_size" {
 variable "cores" {
   description = "vCPU cores for the apps VM"
   type        = number
-  default     = 2
+  default     = 4
 }
 
 variable "memory" {
   description = "Memory in MB for the apps VM"
   type        = number
-  default     = 4096
+  default     = 8192
 }
 
 variable "ip" {
