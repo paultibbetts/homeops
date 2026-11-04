@@ -146,3 +146,7 @@
 		}
 	}
 }
+
+{{ ingress_services.nexroll.domain }} {
+    reverse_proxy {{ ingress_services.nexroll.upstream }}
+}
