@@ -1,12 +1,12 @@
 # renovate: datasource=github-releases depName=fosrl/newt
-newt_version: 1.19.0
+newt_version: 1.20.0
 
 pangolin_edition: "enterprise"
 # Keep Renovate on Pangolin's Enterprise image channel while using upstream release notes.
 # renovate: datasource=docker depName=docker.io/fosrl/pangolin versioning=semver
-pangolin_image: "docker.io/fosrl/pangolin:ee-1.25.3@sha256:f2c0fc54e1b59efcd23b8685e8df84350f363e14ebe1c13ce88a681f181ca49e"
+pangolin_image: "docker.io/fosrl/pangolin:ee-1.26.0@sha256:c65b8b4656b3336cea3f2647fc20da955764cd18103c51b2ea6164bbb054e0de"
 # renovate: datasource=docker depName=docker.io/fosrl/gerbil
-pangolin_gerbil_image: "docker.io/fosrl/gerbil:1.5.2@sha256:1f6e64eaba7997282c7067ba19922fc7e46b5f73e1a27add3dd66a591d50512f"
+pangolin_gerbil_image: "docker.io/fosrl/gerbil:1.6.0@sha256:420f5210b6d1a6d3035f15c3938b5289fee5aeff51ffdcb9b217838338908885"
 # renovate: datasource=docker depName=docker.io/traefik
 pangolin_traefik_image: "docker.io/traefik:v3.7.17"
 # renovate: datasource=docker depName=docker.io/crowdsecurity/crowdsec
