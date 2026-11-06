@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=ghcr.io/renovatebot/renovate
-renovate_docker_image: "ghcr.io/renovatebot/renovate:44.199.2@sha256:0538f498be1b074e2434f8449cab7b2be30f8c0d0baf3b72814010f19db5bcfb"
+renovate_docker_image: "ghcr.io/renovatebot/renovate:44.221.1@sha256:e698014d6e64a8b8e096b624120dc4aa14b1cf0e5754fd86e3c38887de63f18a"
 
 renovate_dockerhub_username: !vault |
           $ANSIBLE_VAULT;1.1;AES256
