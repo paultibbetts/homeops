@@ -150,3 +150,5 @@
 {{ ingress_services.nexroll.domain }} {
     reverse_proxy {{ ingress_services.nexroll.upstream }}
 }
+
+{{ lookup('ansible.builtin.template', playbook_dir ~ '/../templates/ingress/private.Caddyfile.j2') }}
