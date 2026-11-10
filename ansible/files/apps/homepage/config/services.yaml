@@ -102,6 +102,7 @@
           type: truenas
           url: "{{HOMEPAGE_VAR_TRUENAS_URL}}"
           key: "{{HOMEPAGE_VAR_TRUENAS_API_TOKEN}}"
+          version: 2
           enablePools: true
 - Backup:
     - PBS:
