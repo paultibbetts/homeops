@@ -3,7 +3,12 @@
 }
 
 {{ ingress_services.truenas.domain }} {
-        reverse_proxy {{ ingress_services.truenas.upstream }}
+    reverse_proxy https://{{ truenas_ip }}:444 {
+        header_up Host {host}
+        transport http {
+            tls_server_name truenas.cloud.paultibbetts.uk
+        }
+    }
 }
 
 {{ ingress_services.proxmox.domain }} {
