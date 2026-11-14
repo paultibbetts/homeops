@@ -1,6 +1,6 @@
 services:
   nexroll:
-    image: gitea.cloud.paultibbetts.uk/paul/nexroll:develop@sha256:f1e78ecade96ce374e4a93afc3cb1e0956709601c4b87878bcde714ac1ab50cf
+    image: gitea.cloud.paultibbetts.uk/paul/nexroll:develop@sha256:1910906cabcb85c7c77d8d20809b75c2af51b08bae6fd66b5b1604209a80b4d3
     pull_policy: always
     container_name: nexroll
     restart: unless-stopped
