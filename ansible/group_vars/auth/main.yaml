@@ -3,5 +3,5 @@ kanidm_domain: "auth.cloud.paultibbetts.uk"
 kanidm_origin: "https://{{ kanidm_domain }}"
 
 # renovate: datasource=docker depName=kanidm/server versioning=docker
-kanidm_image: "kanidm/server:1.12.0"
+kanidm_image: "kanidm/server:1.12.1"
 beszel_docker_socket_proxy_enabled: true
