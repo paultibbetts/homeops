@@ -1,6 +1,6 @@
 roles:
   - src: geerlingguy.docker
-    version: 8.0.0
+    version: 8.0.1
   - src: geerlingguy.mysql
     version: 6.5.0
   - src: geerlingguy.postgresql
