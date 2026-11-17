@@ -31,6 +31,7 @@
           type: jellyfin
           url: "{{HOMEPAGE_VAR_JELLYFIN_URL}}"
           key: "{{HOMEPAGE_VAR_JELLYFIN_TOKEN}}"
+          version: 2
           enableBlocks: true # optional, defaults to false
           enableNowPlaying: true # optional, defaults to true
           enableUser: true # optional, defaults to false
