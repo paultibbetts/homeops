@@ -2,7 +2,7 @@ terraform {
   required_providers {
     ansible = {
       source  = "ansible/ansible"
-      version = "1.5.1"
+      version = "1.5.2"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
